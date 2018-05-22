@@ -89,7 +89,7 @@ const webpackConfig = {
 
             },
 
-            { //loader para as imagens
+            { //loader para as fontes
                 test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 use:[
                     {

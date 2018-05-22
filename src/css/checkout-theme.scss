@@ -11,7 +11,8 @@ body{
 }
 
 .modal{
-    max-width: 560px;
+    max-width: 600px;
+    max-height: 90%;
 
     .modal-header{
         h4, p{
@@ -24,30 +25,77 @@ body{
         justify-content: space-between;
     }
 
-    form{
-        *{
-            color: white;
-        }
-        
-        input[type=text]{
-            &:not(.browser-default){
-                &:focus:not([readonly]){
-                    box-shadow: 0 1px 0 0 white;
-                    border-bottom: 1px solid white; 
+    .modal-content{
+        padding: 0;
 
-                    & + label{
-                        &.active{
-                            color: white;
+        form{
+            *{
+                color: white;
+            }
+            
+            input[type=text]{
+                &:not(.browser-default){
+                    &:focus:not([readonly]){
+                        box-shadow: 0 1px 0 0 white;
+                        border-bottom: 1px solid white; 
+
+                        & + label{
+                            &.active{
+                                color: white;
+                                transform: translateY(0px) scale(.8);
+                            }
                         }
+                    }
+                }
+
+                & + label{
+                    &.active{
+                        color: white;
+                        transform: translateY(0px) scale(.8);
                     }
                 }
             }
 
-            & + label{
-                &.active{
-                    color: white;
+            .input-field{
+                flex: 1 100%;
+                box-sizing: border-box;
+                padding: 5px 15px;
+                margin: 0.5rem 0;
+                height: 3rem;
+
+                label{
+                    padding-left: 15px;
                 }
             }
+
+
+            &.credit-card{
+                display: flex;
+                flex-flow: row wrap;
+
+                .card-number{
+                    order: 1;   
+                }
+
+                .card-name{
+                    order: 2;
+                }
+                
+                .card-exp-date{
+                    order: 3;
+                    flex: 0.5 auto;
+                }
+
+                .card-cvv{
+                    order: 4;
+                    flex: 0.5 auto;
+                }
+
+                .card-installments{
+                    order: 5;
+                }
+            }
+            
         }
     }
 }
