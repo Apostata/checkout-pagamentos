@@ -11,9 +11,43 @@ body{
 }
 
 .modal{
+    max-width: 560px;
+
     .modal-header{
         h4, p{
             color: white;
+        }
+    }
+
+    .modal-footer{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    form{
+        *{
+            color: white;
+        }
+        
+        input[type=text]{
+            &:not(.browser-default){
+                &:focus:not([readonly]){
+                    box-shadow: 0 1px 0 0 white;
+                    border-bottom: 1px solid white; 
+
+                    & + label{
+                        &.active{
+                            color: white;
+                        }
+                    }
+                }
+            }
+
+            & + label{
+                &.active{
+                    color: white;
+                }
+            }
         }
     }
 }
