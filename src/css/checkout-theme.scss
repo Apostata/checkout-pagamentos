@@ -1,0 +1,20 @@
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.scss';
+
+body{
+    background: #ccc;
+}
+
+.modal, .modal .modal-footer{
+    background:transparent;
+    box-shadow: none;
+}
+
+.modal{
+    .modal-header{
+        h4, p{
+            color: white;
+        }
+    }
+}
+
