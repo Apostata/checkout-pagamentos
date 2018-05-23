@@ -1,5 +1,6 @@
 $material-icons-font-path: '~material-icons/iconfont/';
 @import '~material-icons/iconfont/material-icons.scss';
+@import 'creditcard-icon-font';
 
 body{
     background: #ccc;
@@ -8,11 +9,75 @@ body{
 .modal, .modal .modal-footer{
     background:transparent;
     box-shadow: none;
+    
+}
+
+.select-wrapper{
+    & + label{
+        top: -15px;
+    }
+
+    input{
+        &.select-dropdown:focus {
+            border-bottom: 1px solid white;
+            box-shadow: 0px 1px 0px 0px white;
+        }
+    }
+}
+
+.dropdown-content{
+    background: transparent;
+
+    li{
+        min-height: 35px;
+        @media screen and (max-width: 768px){
+            min-height: 25px;
+        }
+
+        & > a, & > span{
+            z-index: 1;
+            
+            line-height: 16px;
+            font-size: 16px;
+            color: white;
+            position: relative;
+            display: block;
+            text-align: center;
+
+            @media screen and (max-width: 768px){
+                padding: 5px 15px;
+                font-size: 15px;
+                line-height: 15px;
+            }
+
+            &:before{
+                z-index: -1;
+                content: "";
+                position: absolute;
+                top:0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: block;
+                background: black;
+                opacity: 0.7;
+                transition: 300ms all ease-in-out 0ms;
+            }
+
+            &:hover{
+                color: #2196f3;
+                &:before{
+                    opacity: 0.9;
+                }
+            }
+        }
+    }
 }
 
 .modal{
     max-width: 600px;
-    max-height: 90%;
+    max-height: 100%;
+    outline: none;
 
     .modal-header{
         h4, p{
@@ -83,12 +148,12 @@ body{
                 
                 .card-exp-date{
                     order: 3;
-                    flex: 0.5 auto;
+                    flex: 1 50%;
                 }
 
                 .card-cvv{
                     order: 4;
-                    flex: 0.5 auto;
+                    flex: 1 50%;
                 }
 
                 .card-installments{
@@ -96,6 +161,213 @@ body{
                 }
             }
             
+        }
+
+        .card-content{
+            min-height: 200px;
+            display: flex;
+            flex: 1 80%;
+            margin: 0 auto;
+            max-width: 400px;
+            box-sizing: border-box;
+            padding: 10px 15px;
+            border: 1px solid white;
+            border-radius: 5px;
+            box-shadow: 0 0 2px 1px #acacac;
+            display: flex;
+            flex-flow: column;
+            transition: 150ms opacity 150ms, 1ms display 150ms, 300ms transform ease-in-out 0ms; 
+
+            @media screen and (max-width: 768px){
+                display: none;
+            }
+
+            .card-header, .card-body, .card-footer{
+                flex: 1 100%;
+                padding: 0 15px;
+                box-sizing: border-box;
+            }
+
+            .card-header{
+                margin: 30px 0 10px 0px;
+
+                .card-chip{
+                    .creditcard-chip{
+                        color: white;
+                        font-size: 40px;
+                    }
+                }
+            }
+            
+            .card-body{
+                color: white;
+                text-shadow: 0 0 1px white;
+
+                .outputNumber{
+                    font-size: 16px;
+                    letter-spacing: 5px;
+
+                    .material-icons{
+                        font-size: 12px;
+                        letter-spacing: 5px;
+                    }
+                }
+
+
+                .assinatura, .outputCvv{
+                    min-height: 30px;
+                    margin-top: 15px;
+                    border: 1px solid white;
+                }
+                .assinatura{
+                    border-right: none;
+                }
+
+                .outputCvv{
+                    text-align: center;
+                    border-color: red;
+                }
+            }
+
+            .card-footer{
+                display: flex;
+                flex-flow: row wrap;
+                color: white;
+
+                .card-footer-left{
+                    flex: 1 75%;
+                }
+
+                .card-footer-right{
+                    flex: 1 25%;
+                }
+
+                .outputName{
+                    font-size: 16px;
+                    letter-spacing: 2px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 240px;
+                    min-height: 25px;
+                    white-space: nowrap;
+                    text-transform: uppercase;
+                }
+
+                .outputExpDate{
+                    display: inline-block;
+                }
+
+                .outputBrand{
+
+                    &:before{
+                        font-size: 35px;
+                        content:"";
+                        display: block;
+                        font-family:"credit-card";
+                        max-width: 400px;
+                    }
+
+                    &.mastercard{
+                        &:before{
+                            content: "\e908";
+                        }
+                    }
+
+                    &.visa{
+                        &:before{
+                            content: "\e909";
+                        }
+                    }
+
+                    &.discover{
+                        &:before{
+                            content: "\e904";
+                        }
+                    }
+
+                    &.elo{
+                        &:before{
+                            content: "\e905";
+                        }
+                    }
+
+                    &.hipercard{
+                        &:before{
+                            content: "\e905";
+                        }
+                    }
+
+                    &.jcb{
+                        &:before{
+                            content: "\e907";
+                        }
+                    }
+
+                    &.diners{
+                        &:before{
+                            content: "\e907";
+                        }
+                    }
+
+                    &.amex{
+                        &:before{
+                            content: "\e901";
+                        }
+                    }
+
+                    &.aura{
+                        &:before{
+                            content: "\e901";
+                        }
+                    }
+                }
+            }
+
+            .verso{
+                opacity: 0;
+                display: none;
+            }
+
+            .frente{
+                opacity: 1;
+            }
+
+            &.verso{
+                transform: rotateY(-180deg);
+
+                .frente{
+                    display: none;
+                    opacity: 0;
+                    transition:  150ms opacity 150ms, 1ms display 150ms;
+                }
+
+                .verso{
+                    opacity: 1;
+                    transform: rotateY(180deg);
+                    display: block;
+                    transition: 150ms opacity 150ms, 1ms display 150ms;
+                }
+
+                .card-header{
+                    background: white;
+                    min-height: 50px;
+                    padding: 0 15px;
+                    box-sizing: initial;
+                    margin: 5px -15px 0;
+                }
+
+                .card-body{
+                    display: flex;
+                    flex-flow: row wrap;
+
+                    .assinatura{
+                        flex: 1 80%;
+                    }
+                    .outputCvv{
+                        flex: 1 20%;
+                    }
+                }
+            }
         }
     }
 }

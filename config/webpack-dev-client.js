@@ -6,9 +6,7 @@ const HTMLWebpackPlugin =  require('html-webpack-plugin');
 const webpackConfig = {
     name: "client",
     entry:{
-        jquery:["jquery"],
         materialize:[
-            'materialize-css',
             './src/css/sass/materialize.scss'
         ],
         main:[
@@ -95,7 +93,8 @@ const webpackConfig = {
                     {
                         loader: "file-loader",
                         options:{
-                            name:"[name].[ext]"
+                            name:"[name].[ext]",
+                            outputPath: 'fonts/'
                         }
                     }
                 ]

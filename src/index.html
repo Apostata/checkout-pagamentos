@@ -18,9 +18,36 @@
             </div>
             <div class="modal-content">
                 <div class="card-content">
-                    <div class="outputNumber"></div>
-                    <div class="outputBrand"></div>
-                    <img src="" alt="">
+                    <div class="frente">
+                        <div class="card-header">
+                            <div class="card-chip"><i class="creditcard-chip"></i></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="outputNumber"></div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-footer-left">
+                                <div class="card-exp-date">válido até: <div class="outputExpDate"></div> </div>
+                                <div class="outputName"></div>
+                                
+                            </div>
+                            <div class="card-footer-right">
+                                <div class="outputBrand"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="verso">
+                        <div class="card-header">
+                        </div>
+                        <div class="card-body">
+                            <div class="assinatura"></div>
+                            <div class="outputCvv"></div>
+                        </div>
+                        <div class="card-footer">
+                            
+                        </div>
+                    </div>
                 </div>
                 <form class="credit-card" action="">
                     <div class="input-field card-number">
@@ -44,8 +71,21 @@
                     </div>
 
                     <div class="input-field card-installments">
-                        <input id="installments" type="text">
-                        <label for="#installments">Installments</label>
+                        <select name="installments" id="" class="select">
+                            <option value="1">à vista</option>
+                            <option value="2">2 X</option>
+                            <option value="3">3 X</option>
+                            <option value="4">4 X</option>
+                            <option value="5">5 X</option>
+                            <option value="6">6 X</option>
+                            <option value="7">7 X</option>
+                            <option value="8">8 X</option>
+                            <option value="9">9 X</option>
+                            <option value="10">10 X</option>
+                            <option value="11">11 X</option>
+                            <option value="12">12 X</option>
+                        </select>
+                        <label for="#installments">Parcelamento</label>
                     </div>
                 </form>
             </div>
