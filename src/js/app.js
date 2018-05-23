@@ -89,7 +89,6 @@ export default class App {
                 var matched = number.match(_this.brands[idx]);
                 if(matched !== null){
                     $(".outputBrand").attr('class', 'outputBrand').addClass(idx);
-                    
                 }
             })
         });
