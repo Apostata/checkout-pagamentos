@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    </head>
+    <body>
+        <section id="main-section">
+            <div class="row">
+                <div class="col s12 page-header">
+                    <h1 class="title">Checkout</h1>
+                </div>
+            </div>
+            <div class="row">
+                <form action="#" id ="checkout-form" class="col s12 m8">
+                    {{> payment/personal-data }}
+                    {{> payment/delivery-data }}
+                    {{> payment/payment-data }}
+                    <button class="waves-effect waves-light btn azul-claro waves-azul-claro" type="submit">Enviar</button>
+                </form>
+            </div>
+            <div class="row">
+                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Exemplo Checkout</a>
+            </div>
+        </section>
+        
+        {{> modals/credit-card-modal }}
+    </body>
+</html>

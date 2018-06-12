@@ -1,0 +1,115 @@
+
+$cores: (
+    'azul-claro':       #2196f3,
+    'azul-escuro':      #021732,
+    'verde-escuro':     #009687,
+    'verde-claro':      #8bc249,
+    'laranja-claro':    #ff9801,
+    'laranja-escuro':   #ff5622,
+    'cinza-claro':      #f1f1f1,
+    'cinza-medio':      #626262,
+    'cinza-escuro':     #2b343b
+);
+
+
+$coresMenus :(
+
+    'search'    :map-get($cores, 'azul-claro'),
+    'admin'     :map-get($cores, 'verde-escuro'),
+    'report'    :map-get($cores, 'verde-claro'),
+    'config'    :map-get($cores, 'laranja-claro'),
+    'concil'     :map-get($cores, 'laranja-escuro'),
+
+);
+
+$coresStatus :(
+    'default'      :map-get($cores, 'azul-claro'),
+    'deactive'     :map-get($cores, 'cinza-medio'),
+    'success'      :map-get($cores, 'verde-claro'),
+    'alert'        :map-get($cores, 'laranja-claro'),
+    'error'        :map-get($cores, 'laranja-escuro')
+);
+
+$iconStatus :(
+    'default'      :'language',
+    'deactive'     :'format_align_justify',
+    'success'      :'done',
+    'alert'        :'refresh',
+    'error'        :'highlight_off'
+);
+
+$trendingColor : (
+    'positive'          :map-get($cores, 'verde-claro'),
+    'negative'          :map-get($cores, 'laranja-escuro')
+);
+
+$trendingIcon : (
+    'positive'          :'trending_up',
+    'negative'          :'trending_down'
+);
+
+$iconPayments :(
+    'credit'      :'credit_card',
+    'debit'       :'attach_money',
+    'ticket'      :'description',
+    'gift'        :'card_giftcard',
+);
+
+
+@each $indiceCor, $valorCor in $cores {
+
+    .waves-effect.waves-#{$indiceCor} .waves-ripple {
+    /* The alpha value allows the text and background color
+    of the button to still show through. */
+        background-color: rgba(lighten($valorCor, 15%), 1);
+    }
+
+    .#{$indiceCor}{
+        background-color: $valorCor;
+
+        &:hover{
+            background-color: lighten($valorCor, 10%);
+        }
+        &:active, &:focus{
+            background-color: darken($valorCor, 10%);
+        }
+    }
+
+}
+
+@each $indiceTrending, $valorTrending in $trendingColor {
+    .#{$indiceTrending}{
+        color: $valorTrending;
+    }
+
+    .card-content{
+        p{
+            &.#{$indiceTrending}{
+                color: $valorTrending;
+                
+                &:before{
+                    content: map-get($trendingIcon, $indiceTrending);
+                    font-family: Material Icons;
+                }
+            }
+        }
+    }
+}
+
+
+@each $indicePayment, $valorPayment in $iconPayments {
+    .pay-methods{
+        .sub-card{
+            &.#{$indicePayment}{
+                .subcard-header{
+                    &:before{
+                        display: block;
+                        font-size: 25px;
+                        content: $valorPayment;
+                        font-family: Material Icons;
+                    }
+                }
+            }
+        }
+    }
+}

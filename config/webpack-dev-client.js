@@ -100,24 +100,22 @@ const webpackConfig = {
                 ]
             },
 
-           /* {
-                test: /\.html$/,
-                use: [
-                  {
-                    loader: "file-loader",
-                    options: {
-                      name: "[name].[ext]"
+            {// loader para o pré processador html handlebars
+                test:/\.hbs$/,
+                use:[
+                    { 
+                        loader: "handlebars-loader",
+                        
+                        options: {
+                            partialDirs: [
+                                path.resolve(__dirname, "../src/hbs/partials"),
+                            ],
+                            inlineRequires: '/images/'
+                        }                        
                     }
-                  },
-                  { loader: "extract-loader" },
-                  {
-                    loader: "html-loader",
-                    options: {
-                      attrs: ["img:src"]
-                    }
-                  }
-                ]
-            }*/
+                ],
+                exclude: /node_modules/
+            },
         ]
     },
 
@@ -131,7 +129,7 @@ const webpackConfig = {
         }),
         new webpack.HotModuleReplacementPlugin(),
         new HTMLWebpackPlugin({
-            template:   'src/index.html',
+            template:   'src/hbs/index.hbs',
             inject: true,
         })
     ]

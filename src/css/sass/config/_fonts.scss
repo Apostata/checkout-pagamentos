@@ -1,0 +1,31 @@
+@function calculateRem($size) {
+    $remSize: $size / 16px;
+    @return $remSize * 1rem;
+}
+
+$font-sizes:(
+    'verySmall' :   8px,
+    'small':        10px,
+    'medium':       14px,
+    'large-medium': 18px,
+    'large':        22px,
+    'larger':       26px,
+    'largest':      30px,
+);
+
+$title-counter: 7;
+@each $font-index, $font-size in $font-sizes{
+    @if ($title-counter != 7) {
+        h#{$title-counter}, .#{$font-index}{
+            font-size: $font-size;
+            font-size: calculateRem($font-size);
+            margin: 0 0 20px;
+        }
+    }
+
+    $title-counter: $title-counter - 1;
+}
+
+.text-error{
+    @extend .medium;
+}

@@ -1,0 +1,68 @@
+@import '../config/colors';
+
+.input-field{
+    min-height: 76px!important;
+
+    &.normal-height{
+        min-height: 1px!important;
+    }
+
+    & > p{
+        & + label{
+            position: relative;
+        }
+    }
+
+    input{
+        &:not(.browser-default){
+            &:focus{
+                &:not([readonly]){
+                    border-bottom-color: map-get($cores, 'azul-claro');
+                    box-shadow: 0 1px 0 0 map-get($cores, 'azul-claro');
+
+                    & + label{
+                        color: map-get($cores, 'azul-claro');
+                    }
+                }
+            }
+        }        
+    }
+
+    &.has-error{
+        input{
+            
+            &:not(.browser-default){
+                &:not([readonly]){
+                    border-bottom-color: map-get($cores, 'laranja-escuro');
+                    box-shadow: 0 1px 0 0 map-get($cores, 'laranja-escuro');
+
+                    & + label{
+                        color: map-get($cores, 'laranja-escuro');
+                    }
+                }
+
+                &:focus{
+                    &:not([readonly]){
+                        border-bottom-color: map-get($cores, 'laranja-escuro');
+                        box-shadow: 0 1px 0 0 map-get($cores, 'laranja-escuro');
+
+                        & + label{
+                            color: map-get($cores, 'laranja-escuro');
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+
+    .text-error{
+        color: map-get($cores, 'laranja-escuro');
+    }
+}
+
+.modal{
+    .input-field{
+        min-height: 1px!important;
+    }
+}
