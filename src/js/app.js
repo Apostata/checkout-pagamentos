@@ -52,7 +52,8 @@ export default class CheckoutPage {
             }
         });
         cardModal.initialize();
-        this.initializeValidation();        
+        this.initializeValidation();
+        this.setEvents();      
     }
 
     setFieldMasks(){
@@ -72,6 +73,21 @@ export default class CheckoutPage {
         });
         Validation.init(form, true);
     }
+
+    setEvents(){
+        document.querySelectorAll('.select-abas .card-header a')
+        .forEach((aba, index) =>{
+            aba.addEventListener('click', function(e){
+                e.preventDefault();
+                let panelId = this.getAttribute('href');
+                for (let sibling of this.parentNode.parentNode.children) {
+                    if (sibling.children[0] !== this) console.log(sibling.children[0]);
+                    //continuar daqui
+                }
+            });            
+        });
+    }
+
 };
 
 (function(){
