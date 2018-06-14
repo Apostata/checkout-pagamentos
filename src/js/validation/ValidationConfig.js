@@ -1,6 +1,6 @@
 let cpf = input => {        
     return new Promise((valid, invalid)=>{
-       if(input.id ==='cpf'){
+       if(input.id ==='cpf' && input.getAttribute('required') !== null ){
            
             let resto,
                 cpf = input.value,

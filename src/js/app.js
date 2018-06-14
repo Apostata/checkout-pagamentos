@@ -155,6 +155,11 @@ export default class CheckoutPage {
                         }
                         else{
                             show.style.display = 'block';
+                            show.querySelectorAll('input').forEach(function(elem){
+                                if(elem.classList.contains('required')){
+                                    elem.setAttribute('required', 'true');
+                                }
+                            });
                         }
 
                         if(isInputOrSelect(hide)){
@@ -162,10 +167,8 @@ export default class CheckoutPage {
                         }
                         else{
                             hide.style.display = 'none';
-                            show.querySelectorAll('input').forEach(function(elem){
-                                elem.value = '';
-                                if(elem.type === 'checkbox') elem.checked = false;
-                                elem.removeAttribute('disabled');
+                            hide.querySelectorAll('input').forEach(function(elem){
+                                clearAllInputs(elem);
                             });
                         }
                     }
@@ -176,10 +179,8 @@ export default class CheckoutPage {
                         }
                         else{
                             show.style.display = 'none';
-                            hide.querySelectorAll('input').forEach(function(elem){
-                                elem.value = '';
-                                if(elem.type === 'checkbox') elem.checked = false;
-                                elem.removeAttribute('disabled');
+                            show.querySelectorAll('input').forEach(function(elem){
+                               clearAllInputs(elem);
                             });
                         }
 
@@ -188,6 +189,11 @@ export default class CheckoutPage {
                         }
                         else{
                             hide.style.display = 'block';
+                            hide.querySelectorAll('input').forEach(function(elem){
+                                if(elem.classList.contains('required')){
+                                    elem.setAttribute('required', 'true');
+                                }
+                            });
                         }
                     }
                 }
@@ -231,6 +237,14 @@ export default class CheckoutPage {
             else{
                 return false;
             }
+        }
+
+        let clearAllInputs = (elem) =>{
+            elem.value = '';
+            elem.removeAttribute('disabled');
+            elem.removeAttribute('required');
+            if(elem.type === 'checkbox') elem.checked = false;
+           
         }
         
     }
