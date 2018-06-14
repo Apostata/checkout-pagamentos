@@ -1,0 +1,14 @@
+#checkout{
+    .cart-resume{
+        perspective: 1000px;
+        perspective-origin: 200%;
+        position: relative;
+        top: 50px;
+
+        .card{
+            max-width: 92%;
+            transform: translateZ(-15px) rotateX(0deg) rotateY(0deg);
+            margin: 0 auto;
+        }
+    }
+}

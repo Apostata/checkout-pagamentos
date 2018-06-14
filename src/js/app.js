@@ -75,17 +75,164 @@ export default class CheckoutPage {
     }
 
     setEvents(){
+       this.setChangeTabEvent();
+       this.setCheckboxShowArea();
+    }
+
+    setChangeTabEvent(){
         document.querySelectorAll('.select-abas .card-header a')
         .forEach((aba, index) =>{
             aba.addEventListener('click', function(e){
                 e.preventDefault();
                 let panelId = this.getAttribute('href');
+
+                this.parentNode.setAttribute('class','card-header first');
+                document.querySelector(`${panelId}`).setAttribute('class', `aba ${panelId.substr(1)} first`);
+
+                let countSibbling = 0;
+
                 for (let sibling of this.parentNode.parentNode.children) {
-                    if (sibling.children[0] !== this) console.log(sibling.children[0]);
-                    //continuar daqui
+                    if (sibling.children[0] !== this){
+                        let siblingId = sibling.children[0].getAttribute('href');
+                        console.log(siblingId);
+
+                        switch (panelId){
+                            case '#personal-inf':
+                                if(countSibbling === 0){
+                                    sibling.setAttribute('class', 'card-header second');
+                                    document.querySelector(`${siblingId}`).setAttribute('class', `aba ${siblingId.substr(1)} second`);
+                                }
+                                else{
+                                    sibling.setAttribute('class', 'card-header third');
+                                    document.querySelector(`${siblingId}`).setAttribute('class', `aba ${siblingId.substr(1)} third`);
+                                }
+                            break;
+                            case '#delivery-inf':
+                                if(countSibbling === 0){
+                                    sibling.setAttribute('class', 'card-header third');
+                                    document.querySelector(`${siblingId}`).setAttribute('class', `aba ${siblingId.substr(1)} third`);
+                                }
+                                else{
+                                    sibling.setAttribute('class', 'card-header second');
+                                    document.querySelector(`${siblingId}`).setAttribute('class', `aba ${siblingId.substr(1)} second`);
+                                }
+                            break;
+
+                            case '#payment-inf':
+                                if(countSibbling === 0){
+                                    sibling.setAttribute('class', 'card-header second');
+                                    document.querySelector(`${siblingId}`).setAttribute('class', `aba ${siblingId.substr(1)} second`);
+                                }
+                                else{
+                                    sibling.setAttribute('class', 'card-header third');
+                                    document.querySelector(`${siblingId}`).setAttribute('class', `aba ${siblingId.substr(1)} third`);
+                                }
+                            break;
+
+                        }
+                        countSibbling++;
+                    }
+                    
                 }
             });            
         });
+    }
+
+    setCheckboxShowArea(){
+        document.querySelectorAll('input[type="checkbox"][target]')
+        .forEach((checkbox, index) =>{
+            checkbox.addEventListener('change', function(e){
+                
+                let target = this.getAttribute('target').split(', ');
+                let show = document.querySelector(target[0]);
+                if(target.length > 1){
+            
+                    let hide = document.querySelector(target[1]);
+                    
+                    if(isChecked(this)){
+                        if(isInputOrSelect(show)){
+                            show.removeAttribute('disabled');
+                        }
+                        else{
+                            show.style.display = 'block';
+                        }
+
+                        if(isInputOrSelect(hide)){
+                            hide.setAttribute('disalbed','true');
+                        }
+                        else{
+                            hide.style.display = 'none';
+                            show.querySelectorAll('input').forEach(function(elem){
+                                elem.value = '';
+                                if(elem.type === 'checkbox') elem.checked = false;
+                                elem.removeAttribute('disabled');
+                            });
+                        }
+                    }
+
+                    else{
+                        if(isInputOrSelect(show)){
+                            show.setAttribute('disabled', 'true');
+                        }
+                        else{
+                            show.style.display = 'none';
+                            hide.querySelectorAll('input').forEach(function(elem){
+                                elem.value = '';
+                                if(elem.type === 'checkbox') elem.checked = false;
+                                elem.removeAttribute('disabled');
+                            });
+                        }
+
+                        if(isInputOrSelect(hide)){
+                            hide.removetAttribute('disalbed');
+                        }
+                        else{
+                            hide.style.display = 'block';
+                        }
+                    }
+                }
+                else{
+                    if(isChecked(this)){
+                        if(isInputOrSelect(show)){
+                            show.setAttribute('disabled', 'true');
+                        }
+                        else{
+                            show.style.display = 'none';
+                        }
+                    }
+
+                    else{
+                        if(isInputOrSelect(show)){
+                            show.removeAttribute('disabled');
+                        }
+                        else{
+                            show.style.display = 'block';
+                        }
+                    }
+                }
+                
+            });
+        });
+
+
+        let isChecked = (checkbox) =>{
+            if(checkbox.checked){
+                return true;
+            }
+            else{
+                return false;
+            }
+        };
+
+        let isInputOrSelect = (target)=>{
+            if(target.tagName === "INPUT" || target.tagName === "SELECT"){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
     }
 
 };

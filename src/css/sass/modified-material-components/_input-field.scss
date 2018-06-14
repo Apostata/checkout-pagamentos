@@ -7,6 +7,10 @@
         min-height: 1px!important;
     }
 
+    label{
+        color: map-get($cores, 'cinza-medio');
+    }
+
     & > p{
         & + label{
             position: relative;
