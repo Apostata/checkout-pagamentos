@@ -3,11 +3,86 @@
         
         <div class="row card-content">
             
-            <div class=" normal-height col s12">
-                <p>Entrega</p>
-               
+            <div class="normal-height col s12">
+                <div id="endereco-faturamento" class="col s12 endereco-faturamento">
+                    <div class="row">
+                        <div class="col s12">
+                            <h3>Dados para faturamento</h3>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="cepFaturamento" name="cepFaturamento" type="text"  class="required" />
+                            <label class="form-label" for="cepFaturamento">*CEP</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="enderecoFaturamento" name="enderecoFaturamento" type="text"  class="required" />
+                            <label class="form-label" for="enderecoFaturamento">*Endereço</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="numeroEndFaturamento" name="numeroEndFaturamento" type="text" class="required"/>
+                            <label class="form-label" for="numeroEndFaturamento">*Número</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="complementoEndFaturamento" name="complementoEndFaturamento" type="text" />
+                            <label class="form-label" for="complementoEndFaturamento">Complemento</label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="input-field col s12">
+                    <p><b>Endereço de entrega é o mesmo do faturamento?</b></p>
+                    <label>
+                        <input name="pessoaJuridica" type="checkbox" target="#endereco-entrega" checked/>
+                        <span>Sim</span>
+                    </label>
+                </div>
+
+                <div id="endereco-entrega" class="col s12 endereco-entrega hide">
+                    <div class="row">
+                        <div class="col s12">
+                            <h3>Dados para Entrega</h3>
+                        </div>
+
+                        <div class="input-field col s12 m6">
+                            <input id="cepFaturamento" name="cepFaturamento" type="text"  class="required" />
+                            <label class="form-label" for="cepFaturamento">*CEP</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="enderecoFaturamento" name="enderecoFaturamento" type="text"  class="required" />
+                            <label class="form-label" for="enderecoFaturamento">*Endereço</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="numeroEndFaturamento" name="numeroEndFaturamento" type="text" class="required"/>
+                            <label class="form-label" for="numeroEndFaturamento">*Número</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="complementoEndFaturamento" name="complementoEndFaturamento" type="text" />
+                            <label class="form-label" for="complementoEndFaturamento">Complemento</label>
+                        </div>
+                    </div>             
+                </div>
+
+                <div class="input-field col s12">
+                    <p><b>Destinatário é o proprio comprador?</b></p>
+                    <label>
+                        <input name="pessoaJuridica" type="checkbox" target="#destinatario" checked />
+                        <span>sim</span>
+                    </label>
+                </div>
+
+                <div id="destinatario" class="col s12 destinatario hide">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="name" name="name" type="text" class="required" />
+                            <label class="form-label" for="name">*Nome</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="cpf" name="cpf" type="text" class="required" />
+                            <label class="form-label" for="cpf">*CPF</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
         </div>
     </div>
 </div>

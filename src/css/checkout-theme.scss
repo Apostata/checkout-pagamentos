@@ -5,6 +5,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
 
 @import 'sass/modified-material-components/input-field';
 @import 'sass/modified-material-components/card';
+@import 'sass/config/animations';
 
 body{
     background: #ccc;
@@ -489,6 +490,7 @@ body{
         top: 0;
         left: 0;
         width: 100%;
+        //@extend .animation-change-card;
        
         .card{
             min-width: 100%;
@@ -530,11 +532,6 @@ body{
         bottom: -30px;
         left: 0;
     }
-}
-
-
-#pessoa-juridica{
-    display: none;
 }
 
 @import 'sass/new-components/checkout-cart-resume';

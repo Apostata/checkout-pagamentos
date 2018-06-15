@@ -6,7 +6,7 @@ let cpf = input => {
                 cpf = input.value,
                 soma = 0;
 
-            cpf = cpf.replace(/(\s|\_|\.|\-|\/|\\)/g, "");
+            cpf = cpf.replace(/[^\d]+/g, "");
             if(cpf.length < 11){
                 invalid();
             }
@@ -49,11 +49,78 @@ let cpf = input => {
     });
 };
 
+let cnpj = input => {
+    return new Promise((valid, invalid)=>{
+        
+        if(input.id ==='cnpj' && input.getAttribute('required') !== null ){
+            let cnpj = input.value;
+
+            cnpj = cnpj.replace(/[^\d]+/g,'');
+ 
+            if(cnpj == '') invalid();
+             
+            if (cnpj.length != 14)
+            invalid();
+         
+            // Elimina CNPJs invalidos conhecidos
+            if (cnpj == "00000000000000" || 
+                cnpj == "11111111111111" || 
+                cnpj == "22222222222222" || 
+                cnpj == "33333333333333" || 
+                cnpj == "44444444444444" || 
+                cnpj == "55555555555555" || 
+                cnpj == "66666666666666" || 
+                cnpj == "77777777777777" || 
+                cnpj == "88888888888888" || 
+                cnpj == "99999999999999")
+                invalid();
+                 
+            // Valida DVs
+            let tamanho = cnpj.length - 2,
+                numeros = cnpj.substring(0,tamanho),
+                digitos = cnpj.substring(tamanho),
+                soma = 0,
+                pos = tamanho - 7;
+
+            for (let i = tamanho; i >= 1; i--) {
+              soma += numeros.charAt(tamanho - i) * pos--;
+              if (pos < 2)
+                    pos = 9;
+            }
+
+            let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado != digitos.charAt(0))
+            invalid();
+                 
+            tamanho = tamanho + 1;
+            numeros = cnpj.substring(0,tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+
+            for (let i = tamanho; i >= 1; i--) {
+              soma += numeros.charAt(tamanho - i) * pos--;
+              if (pos < 2)
+                    pos = 9;
+            }
+
+            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado != digitos.charAt(1))
+                  invalid();
+                   
+            valid();
+        }
+        else{
+            valid();
+        }
+    });
+};
+
 export const validationConfig ={
     language:{
 
         required: "O campo '{label}' é obrigatório!",
         cpf: "{label} digite um cpf válido",
+        cnpj: "{label} digite um cnpj válido",
         email: "'{label}' deve ser um e-mail válido!",
         tel: "'{label}' não é um número válido de telefone!",
         telefone: "'{label}' não é um número válido de telefone!",
@@ -88,7 +155,8 @@ export const validationConfig ={
     },
 
     helperFunctions:[
-        {cpf}
+        {cpf},
+        {cnpj}
     ]
 }
 

@@ -18,6 +18,14 @@ export default class CheckoutPage {
                     }
                 ]
             },
+            cnpj:{
+                mask: [
+                    {
+                        mask: '00.000.000/0000-00',
+                        lazy: true,
+                    }
+                ]
+            },
             tel:{
                 mask: [
                     {
@@ -64,13 +72,18 @@ export default class CheckoutPage {
     }
 
     initializeValidation(){
+        //let _this = this;
         let form = document.querySelector('#checkout-form');
-        let personal = document.querySelector('.personal-inf');
+        document.querySelectorAll('#pessoa-fisica input, #geral input, #endereco-faturamento input')
+        .forEach((elem)=>{
+            if(this.isRequired(elem)) elem.setAttribute('required', 'true');
+        });
         ValidationUI.config = validationConfig.defaultConfig;
         Validation.lang = validationConfig.language;
         validationConfig.helperFunctions.map((func, index) =>{
             Validation.validators[Object.keys(func)] = func[Object.keys(func)];
         });
+        //debugger;
         Validation.init(form, true);
     }
 
@@ -86,15 +99,19 @@ export default class CheckoutPage {
                 e.preventDefault();
                 let panelId = this.getAttribute('href');
 
-                this.parentNode.setAttribute('class','card-header first');
-                document.querySelector(`${panelId}`).setAttribute('class', `aba ${panelId.substr(1)} first`);
+                this.parentNode.setAttribute('class','card-header first animation-change-cardHeader');
+                document.querySelector(`${panelId}`).setAttribute('class', `aba ${panelId.substr(1)} first animation-change-card`);
+                
+                setTimeout(()=>{
+                    this.parentNode.classList.remove('animation-change-cardHeader');
+                    document.querySelector(`${panelId}`).classList.remove('animation-change-card');
+                }, 501);
 
                 let countSibbling = 0;
 
                 for (let sibling of this.parentNode.parentNode.children) {
                     if (sibling.children[0] !== this){
                         let siblingId = sibling.children[0].getAttribute('href');
-                        console.log(siblingId);
 
                         switch (panelId){
                             case '#personal-inf':
@@ -139,6 +156,7 @@ export default class CheckoutPage {
     }
 
     setCheckboxShowArea(){
+        let _this = this;
         document.querySelectorAll('input[type="checkbox"][target]')
         .forEach((checkbox, index) =>{
             checkbox.addEventListener('change', function(e){
@@ -154,11 +172,9 @@ export default class CheckoutPage {
                             show.removeAttribute('disabled');
                         }
                         else{
-                            show.style.display = 'block';
+                            show.classList.remove('hide');
                             show.querySelectorAll('input').forEach(function(elem){
-                                if(elem.classList.contains('required')){
-                                    elem.setAttribute('required', 'true');
-                                }
+                                if(_this.isRequired(elem)) elem.setAttribute('required', 'true');
                             });
                         }
 
@@ -166,10 +182,11 @@ export default class CheckoutPage {
                             hide.setAttribute('disalbed','true');
                         }
                         else{
-                            hide.style.display = 'none';
+                            hide.classList.add('hide');
                             hide.querySelectorAll('input').forEach(function(elem){
                                 clearAllInputs(elem);
                             });
+                            Validation.validateSection(hide).then(result => {console.log(`clear validation on ${hide.id}`)})
                         }
                     }
 
@@ -178,21 +195,20 @@ export default class CheckoutPage {
                             show.setAttribute('disabled', 'true');
                         }
                         else{
-                            show.style.display = 'none';
+                            show.classList.add('hide');
                             show.querySelectorAll('input').forEach(function(elem){
                                clearAllInputs(elem);
                             });
+                            Validation.validateSection(show).then(result => {console.log(`clear validation on ${show.id}`)})
                         }
 
                         if(isInputOrSelect(hide)){
                             hide.removetAttribute('disalbed');
                         }
                         else{
-                            hide.style.display = 'block';
+                            hide.classList.remove('hide');
                             hide.querySelectorAll('input').forEach(function(elem){
-                                if(elem.classList.contains('required')){
-                                    elem.setAttribute('required', 'true');
-                                }
+                                if(_this.isRequired(elem)) elem.setAttribute('required', 'true');
                             });
                         }
                     }
@@ -201,18 +217,37 @@ export default class CheckoutPage {
                     if(isChecked(this)){
                         if(isInputOrSelect(show)){
                             show.setAttribute('disabled', 'true');
+                            if(_this.isRequired(show)){
+                                show.removeAttribute('required');
+                                show.parentNode.classList.remove('has-error');
+                                show.parentNode.querySelector('.text-error').remove();
+                            }
                         }
                         else{
-                            show.style.display = 'none';
+                            show.classList.add('hide');
+                            
+                            if(show.querySelectorAll('input').length > 0){
+                                
+                                show.querySelectorAll('input').forEach(function(elem){
+                                    if(_this.isRequired(elem)) elem.removeAttribute('required');
+                                });
+                                Validation.validateSection(show).then(result => {console.log(`clear validation on ${show.id}`)})
+                            }
                         }
                     }
 
                     else{
                         if(isInputOrSelect(show)){
                             show.removeAttribute('disabled');
+                            if(_this.isRequired(show)) show.setAttribute('required', 'true');
                         }
                         else{
-                            show.style.display = 'block';
+                            show.classList.remove('hide');
+                            if(show.querySelectorAll('input').length > 0){
+                                show.querySelectorAll('input').forEach(function(elem){
+                                    if(_this.isRequired(elem)) elem.setAttribute('required', true);
+                                });
+                            }
                         }
                     }
                 }
@@ -245,8 +280,17 @@ export default class CheckoutPage {
             elem.removeAttribute('required');
             if(elem.type === 'checkbox') elem.checked = false;
            
+        }        
+    }
+
+    isRequired(elem){
+        if(elem.classList.contains('required')){
+            return true;
         }
-        
+        else
+        {
+            return false;
+        }
     }
 
 };

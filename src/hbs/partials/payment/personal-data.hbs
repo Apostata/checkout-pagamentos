@@ -6,7 +6,7 @@
         <div class="row card-content">
             
             <div class="input-field normal-height col s12">
-                <p>Pessoa jurídica?</p>
+                <p><b>Pessoa jurídica?</b></p>
                 <label>
                     <input name="pessoaJuridica" type="checkbox" target="#pessoa-juridica, #pessoa-fisica" />
                     <span>Sim</span>
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div id="pessoa-juridica" class="col s12 pessoa-juridica">
+            <div id="pessoa-juridica" class="col s12 pessoa-juridica hide">
                 <div class="row">
                     <div class="input-field col s12 m6">
                         <input id="razaoSocial" name="razaoSocial" type="text" class="required" />
@@ -37,7 +37,7 @@
                         <label class="form-label" for="nomeFantasia">*Nome Fantasia</label>
                     </div>
                     <div class="input-field col s12 m6">
-                        <input id="cnpj" name="cnpj" cpf="" type="text" class="required" />
+                        <input id="cnpj" name="cnpj" type="text" class="required" />
                         <label class="form-label" for="cnpj">*CNPJ</label>
                     </div>
                     <div class="col s12 m6">
@@ -50,7 +50,7 @@
                                 </label>
                             </div>
                             <div class="input-field col s12 m6">
-                                <input id="inscricaoEstadual" name="inscricaoEstadual" type="text"  />
+                                <input id="inscricaoEstadual" name="inscricaoEstadual" type="text" class="required" />
                                 <label class="form-label" for="inscricaoEstadual">Inscrição Estadual</label>
                             </div>
                         </div>
@@ -61,11 +61,11 @@
             <div id="geral" class="col s12 geral">
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        <input id="email" name="email" type="email"  />
+                        <input id="email" name="email" type="email"  class="required" />
                         <label class="form-label" for="email">*E-mail</label>
                     </div>
                      <div class="input-field col s12 m6">
-                        <input id="tel" name="tel" type="tel"  />
+                        <input id="tel" name="tel" type="tel" class="required"/>
                         <label class="form-label" for="tel">*Telefone</label>
                     </div>
                 </div>
