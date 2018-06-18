@@ -1,15 +1,15 @@
 @font-face {
   font-family: 'credit-card';
-  src:  url('fonts/credit-card.eot?yw84zq');
-  src:  url('fonts/credit-card.eot?yw84zq#iefix') format('embedded-opentype'),
-    url('fonts/credit-card.ttf?yw84zq') format('truetype'),
-    url('fonts/credit-card.woff?yw84zq') format('woff'),
-    url('fonts/credit-card.svg?yw84zq#credit-card') format('svg');
+  src:  url('fonts/credit-card.eot?4ywizg');
+  src:  url('fonts/credit-card.eot?4ywizg#iefix') format('embedded-opentype'),
+    url('fonts/credit-card.ttf?4ywizg') format('truetype'),
+    url('fonts/credit-card.woff?4ywizg') format('woff'),
+    url('fonts/credit-card.svg?4ywizg#credit-card') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-[class^="creditcard-"], [class*=" creditcard-"] {
+[class^="credit-card-"], [class*=" credit-card-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'credit-card' !important;
   speak: none;
@@ -24,39 +24,42 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.creditcard-chip:before {
+.credit-card-uoldiveo:before {
+  content: "\e90d";
+}
+.credit-card-UOLIcon:before {
+  content: "\e90c";
+}
+.credit-card-bpag:before {
+  content: "\e90b";
+}
+.credit-card-chip:before {
   content: "\e90a";
 }
-.creditcard-aura:before {
+.credit-card-aura:before {
   content: "\e900";
 }
-.creditcard-amex:before {
+.credit-card-amex:before {
   content: "\e901";
 }
-.creditcard-diners .path1:before {
+.credit-card-diners:before {
   content: "\e902";
-  color: rgb(57, 57, 57);
 }
-.creditcard-diners .path2:before {
-  content: "\e903";
-  margin-left: -1.5927734375em;
-  color: rgb(55, 55, 55);
-}
-.creditcard-discover:before {
+.credit-card-discover:before {
   content: "\e904";
 }
-.creditcard-elo:before {
+.credit-card-elo:before {
   content: "\e905";
 }
-.creditcard-hipercard:before {
+.credit-card-hipercard:before {
   content: "\e906";
 }
-.creditcard-jcb:before {
+.credit-card-jcb:before {
   content: "\e907";
 }
-.creditcard-mastercard-old:before {
+.credit-card-mastercard:before {
   content: "\e908";
 }
-.creditcard-visa:before {
+.credit-card-visa:before {
   content: "\e909";
 }

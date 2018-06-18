@@ -4,14 +4,26 @@
         <div class="row card-content">
             
             <div class="normal-height col s12">
-                <div id="endereco-faturamento" class="col s12 endereco-faturamento">
+                <div id="endereco-faturamento" class="col s12 endereco-faturamento addressSection">
                     <div class="row">
                         <div class="col s12">
                             <h3>Dados para faturamento</h3>
                         </div>
                         <div class="input-field col s12 m6">
-                            <input id="cepFaturamento" name="cepFaturamento" type="text"  class="required" />
-                            <label class="form-label" for="cepFaturamento">*CEP</label>
+                            <input id="cep" name="cepFaturamento" type="text"  class="required" />
+                            <label class="form-label" for="cep">*CEP</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="cidadeFaturamento" name="cidadeFaturamento" type="text"  class="required" />
+                            <label class="form-label" for="cidadeFaturamento">*Cidade</label>
+                        </div>
+                         <div class="input-field col s12 m6">
+                            <input id="estadoFaturamento" name="estadoFaturamento" type="text"  class="required" />
+                            <label class="form-label" for="estadoFaturamento">*Estado</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="bairroFaturamento" name="bairroFaturamento" type="text"  class="required" />
+                            <label class="form-label" for="bairroFaturamento">*Bairro</label>
                         </div>
                         <div class="input-field col s12 m6">
                             <input id="enderecoFaturamento" name="enderecoFaturamento" type="text"  class="required" />
@@ -32,32 +44,44 @@
                 <div class="input-field col s12">
                     <p><b>Endereço de entrega é o mesmo do faturamento?</b></p>
                     <label>
-                        <input name="pessoaJuridica" type="checkbox" target="#endereco-entrega" checked/>
+                        <input name="enderecoEntrega" id="enderecoEntrega" type="checkbox" target="#endereco-entrega" checked/>
                         <span>Sim</span>
                     </label>
                 </div>
 
-                <div id="endereco-entrega" class="col s12 endereco-entrega hide">
+                <div id="endereco-entrega" class="col s12 endereco-entrega hide addressSection">
                     <div class="row">
                         <div class="col s12">
                             <h3>Dados para Entrega</h3>
                         </div>
 
                         <div class="input-field col s12 m6">
-                            <input id="cepFaturamento" name="cepFaturamento" type="text"  class="required" />
-                            <label class="form-label" for="cepFaturamento">*CEP</label>
+                            <input id="cep" name="cepEntrega" type="text"  class="required" />
+                            <label class="form-label" for="cep">*CEP</label>
                         </div>
                         <div class="input-field col s12 m6">
-                            <input id="enderecoFaturamento" name="enderecoFaturamento" type="text"  class="required" />
-                            <label class="form-label" for="enderecoFaturamento">*Endereço</label>
+                            <input id="cidadeEntrega" name="cidadeEntrega" type="text"  class="required" />
+                            <label class="form-label" for="cidadeEntrega">*Cidade</label>
+                        </div>
+                         <div class="input-field col s12 m6">
+                            <input id="estadoEntrega" name="estadoEntrega" type="text"  class="required" />
+                            <label class="form-label" for="estadoEntrega">*Estado</label>
                         </div>
                         <div class="input-field col s12 m6">
-                            <input id="numeroEndFaturamento" name="numeroEndFaturamento" type="text" class="required"/>
-                            <label class="form-label" for="numeroEndFaturamento">*Número</label>
+                            <input id="bairroEntrega" name="bairroEntrega" type="text"  class="required" />
+                            <label class="form-label" for="bairroEntrega">*Bairro</label>
                         </div>
                         <div class="input-field col s12 m6">
-                            <input id="complementoEndFaturamento" name="complementoEndFaturamento" type="text" />
-                            <label class="form-label" for="complementoEndFaturamento">Complemento</label>
+                            <input id="enderecoEntrega" name="enderecoEntrega" type="text"  class="required" />
+                            <label class="form-label" for="enderecoEntrega">*Endereço</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="numeroEndEntrega" name="numeroEndEntrega" type="text" class="required"/>
+                            <label class="form-label" for="numeroEndEntrega">*Número</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="complementoEndEntrega" name="complementoEndEntrega" type="text" />
+                            <label class="form-label" for="complementoEndEntrega">Complemento</label>
                         </div>
                     </div>             
                 </div>
@@ -65,7 +89,7 @@
                 <div class="input-field col s12">
                     <p><b>Destinatário é o proprio comprador?</b></p>
                     <label>
-                        <input name="pessoaJuridica" type="checkbox" target="#destinatario" checked />
+                        <input name="compradorIgualDestinatario" id="compradorIgualDestinatario" type="checkbox" target="#destinatario" checked />
                         <span>sim</span>
                     </label>
                 </div>
@@ -73,11 +97,11 @@
                 <div id="destinatario" class="col s12 destinatario hide">
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="name" name="name" type="text" class="required" />
+                            <input id="name" name="nomeDestinatario" type="text" class="required" />
                             <label class="form-label" for="name">*Nome</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="cpf" name="cpf" type="text" class="required" />
+                            <input id="cpf" name="cpfDestinatario" type="text" class="required" />
                             <label class="form-label" for="cpf">*CPF</label>
                         </div>
                     </div>

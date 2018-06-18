@@ -2,6 +2,7 @@
   "name": "checkout-pagamentos",
   "version": "1.0.0",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",

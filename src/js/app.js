@@ -37,8 +37,24 @@ export default class CheckoutPage {
                         lazy: true,
                     }
                 ]
+            },
+            cep:{
+                mask: [
+                    {
+                        mask: '00000-000',
+                        lazy: true,
+                    },
+                ]
             }
-        }
+        },
+
+        this.sections =[
+            '#pessoa-fisica',
+            '#geral',
+            '#endereco-faturamento'
+        ];
+
+        this.form = '';
     }
 
     initialize (){
@@ -61,35 +77,39 @@ export default class CheckoutPage {
         });
         cardModal.initialize();
         this.initializeValidation();
-        this.setEvents();      
+              
     }
 
     setFieldMasks(){
         Object.keys(this.fieldMasks).map((mask)=>{
-            let id = `#${mask}`;
-           new IMask(document.querySelector(id), this.fieldMasks[mask]);
+            let id = `#${mask}`,
+                fields = document.querySelectorAll(id);
+            fields.forEach((field)=>{
+                new IMask(field, this.fieldMasks[mask]);
+            });
         });
     }
 
     initializeValidation(){
         //let _this = this;
-        let form = document.querySelector('#checkout-form');
-        document.querySelectorAll('#pessoa-fisica input, #geral input, #endereco-faturamento input')
-        .forEach((elem)=>{
-            if(this.isRequired(elem)) elem.setAttribute('required', 'true');
-        });
+        this.form = document.querySelector('#checkout-form');
+        
         ValidationUI.config = validationConfig.defaultConfig;
         Validation.lang = validationConfig.language;
-        validationConfig.helperFunctions.map((func, index) =>{
+        validationConfig.validationFunctions.map((func, index) =>{
             Validation.validators[Object.keys(func)] = func[Object.keys(func)];
         });
-        //debugger;
-        Validation.init(form, true);
+        //Validation.init(form, true);
+        this.setEvents();
     }
 
     setEvents(){
        this.setChangeTabEvent();
        this.setCheckboxShowArea();
+       this.formSubmit();
+       this.form.querySelectorAll('input').forEach((elem)=>{
+            this.blurInput(elem);
+       });
     }
 
     setChangeTabEvent(){
@@ -167,7 +187,7 @@ export default class CheckoutPage {
             
                     let hide = document.querySelector(target[1]);
                     
-                    if(isChecked(this)){
+                    if(_this.isChecked(this)){
                         if(isInputOrSelect(show)){
                             show.removeAttribute('disabled');
                         }
@@ -186,8 +206,9 @@ export default class CheckoutPage {
                             hide.querySelectorAll('input').forEach(function(elem){
                                 clearAllInputs(elem);
                             });
-                            Validation.validateSection(hide).then(result => {console.log(`clear validation on ${hide.id}`)})
+                            Validation.validateSection(hide).then(result => {console.log(`clear validation on ${hide.id}`)});
                         }
+                        setSections(`#${show.id}`, `#${hide.id}`);
                     }
 
                     else{
@@ -211,10 +232,11 @@ export default class CheckoutPage {
                                 if(_this.isRequired(elem)) elem.setAttribute('required', 'true');
                             });
                         }
+                        setSections(`#${hide.id}`, `#${show.id}`);
                     }
                 }
                 else{
-                    if(isChecked(this)){
+                    if(_this.isChecked(this)){
                         if(isInputOrSelect(show)){
                             show.setAttribute('disabled', 'true');
                             if(_this.isRequired(show)){
@@ -233,6 +255,7 @@ export default class CheckoutPage {
                                 });
                                 Validation.validateSection(show).then(result => {console.log(`clear validation on ${show.id}`)})
                             }
+                            setSections(undefined, `#${show.id}`);
                         }
                     }
 
@@ -249,21 +272,12 @@ export default class CheckoutPage {
                                 });
                             }
                         }
+                        setSections(`#${show.id}`, undefined);
                     }
                 }
                 
             });
         });
-
-
-        let isChecked = (checkbox) =>{
-            if(checkbox.checked){
-                return true;
-            }
-            else{
-                return false;
-            }
-        };
 
         let isInputOrSelect = (target)=>{
             if(target.tagName === "INPUT" || target.tagName === "SELECT"){
@@ -279,8 +293,22 @@ export default class CheckoutPage {
             elem.removeAttribute('disabled');
             elem.removeAttribute('required');
             if(elem.type === 'checkbox') elem.checked = false;
-           
-        }        
+        };
+        
+        let setSections = (show, hide)=>{
+            if(show){
+                if(!_this.sections.includes(show)){
+                    _this.sections.push(show);
+                }
+            }
+            if(hide){
+                if(_this.sections.includes(hide)){
+                    let index = _this.sections.indexOf(hide);
+                    _this.sections.splice(index, 1);
+                }
+            }
+            //console.log(_this.sections);
+        }
     }
 
     isRequired(elem){
@@ -293,6 +321,63 @@ export default class CheckoutPage {
         }
     }
 
+    isChecked(checkbox){
+        if(checkbox.checked){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    formSubmit(){
+        this.form.querySelector('.enviar')
+        .addEventListener('click', ()=>{
+            this.validateSections();
+        });
+    }
+
+    validateSections(){
+        this.sections.forEach((section)=>{
+            this.form.querySelector(section).querySelectorAll('input').forEach((elem)=>{
+                if(this.isRequired(elem)) elem.setAttribute('required', 'true');
+            });
+
+            Validation.validateSection(this.form.querySelector(section), true).then(result => {
+            
+                if (result === true) {
+                    this.form.submit();
+                }
+            })
+        });
+    }
+
+    blurInput(input){
+        input.addEventListener('blur', (e)=>{
+            if(Validation.validators[input.id]){
+                if(this.isRequired(input)) input.setAttribute('required', 'true');
+                Validation.validators[input.id](input);
+            }
+        });
+    }
+
+    enderecoDeentrega(){
+        let enderecoEntrega = document.querySelector('#enderecoEntrega');
+        if(this.isChecked(enderecoEntrega)){
+            //copia o endereco do faturamento;
+            return true;
+        }
+        return false;
+    }
+
+    compradorIgualdestinatario(){
+        let destinatario = document.querySelector('#compradorIgualDestinatario');
+        if(this.isChecked(destinatario)){
+            //copia o endereco do faturamento;
+            return true;
+        }
+        return false;
+    }
 };
 
 (function(){

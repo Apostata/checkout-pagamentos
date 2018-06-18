@@ -1,3 +1,28 @@
+import axios from 'axios';
+
+let fillAddressFields = (input, data) =>{
+    let getParent = function(elem, selector){
+        for ( ; elem && elem !== document; elem = elem.parentNode ) {
+            if ( elem.matches( selector ) ) return elem;
+        }
+        return null;
+    },
+    parent = getParent(input, '.addressSection');
+    parent.querySelector('[id*=cidade]').value = data.localidade;
+    parent.querySelector('label[for*=cidade]').classList.add('active');
+
+    parent.querySelector('[id*=estado]').value = data.uf;
+    parent.querySelector('label[for*=estado]').classList.add('active');
+
+    parent.querySelector('[id*=bairro]').value = data.bairro;
+    parent.querySelector('label[for*=bairro]').classList.add('active');
+
+    parent.querySelector('[id*=endereco]').value = data.logradouro;
+    parent.querySelector('label[for*=endereco]').classList.add('active');
+
+    parent.querySelector('[id*=numeroEnd]').focus();
+};
+
 let cpf = input => {        
     return new Promise((valid, invalid)=>{
        if(input.id ==='cpf' && input.getAttribute('required') !== null ){
@@ -115,12 +140,45 @@ let cnpj = input => {
     });
 };
 
-export const validationConfig ={
-    language:{
+let cep = function(input,  callback = fillAddressFields){
+    return new Promise((valid, invalid)=>{
+        
+        if(input.id ==='cep' && input.getAttribute('required') !== null ){
+            let cep = input.value,
+                url = `http://viacep.com.br/ws/${cep}/json/`;
+            cep = cep.replace(/[^\d]+/g,'');
+            
+            axios.get(url)
+            .then(function (response) {
+                if(response.data.erro){
+                    invalid();
+                }
+                else{
+                    callback(input, response.data);
+                    valid();
+                }
+                    
+                    
+            })
+            .catch(function (error) {
+                console.log(error);
+                invalid();
+            });
+        }
+        else{
+            valid();
+        }
+    });
+};
 
+
+export const validationConfig = {
+    
+    language:{
         required: "O campo '{label}' é obrigatório!",
         cpf: "{label} digite um cpf válido",
         cnpj: "{label} digite um cnpj válido",
+        cep: "{label} insira um cep válido",
         email: "'{label}' deve ser um e-mail válido!",
         tel: "'{label}' não é um número válido de telefone!",
         telefone: "'{label}' não é um número válido de telefone!",
@@ -133,12 +191,9 @@ export const validationConfig ={
         requiredFromList: "Selecione '{label}' da lista",
         confirmation: "'{label}' não é igual a '{originalLabel}'",
         minOptions: "Por favor, selecione ao menos {minOptionsCount} opções!",
-        
-    
     },
 
     defaultConfig:{
-
         // div/node class name selector which contains one label, one input, one help text etc.
         classInputGroup: 'input-field',
         // class to be applied on input group node if it has invalid input
@@ -154,9 +209,10 @@ export const validationConfig ={
     
     },
 
-    helperFunctions:[
-        {cpf},
-        {cnpj}
-    ]
-}
 
+    validationFunctions:[
+        {cpf},
+        {cnpj},
+        {cep}
+    ]
+};
