@@ -1,5 +1,5 @@
  <!-- Modal Structure -->
-<div id="modal1" class="modal">
+<div id="modal-credit-card" class="modal">
     <div class="modal-header">
         <h4>Informe seus dados para pagamento</h4>
         <p>
@@ -40,30 +40,30 @@
                 </div>
             </div>
         </div>
-        <form class="credit-card" action="">
-            <div class="input-field card-number">
-                <input id="masknumber" name="masknumber" type="text">
+        <div class="credit-card">
+            <div class="col s12 input-field card-number">
+                <input id="masknumber" name="numeroCartao" type="text" class="required">
                 <label for="#masknumber">Número</label>
             </div>
 
-            <div class="input-field card-name">
-                <input id="maskname" name="maskname" type="text">
+            <div class="col s12 input-field card-name">
+                <input id="maskname" name="proprietarioCartao" type="text" class="required">
                 <label for="#maskname">Nome</label>
             </div>
 
-            <div class="input-field card-exp-date">
-                <input id="maskexpdate", name="maskexpdate" type="text">
+            <div class="col s12 m6 input-field card-exp-date">
+                <input id="maskexpdate", name="expDate" type="text" class="required">
                 <label for="#maskexpdate">Validade</label>
             </div>
 
-            <div class="input-field card-cvv">
-                <input id="maskcvv" type="text">
+            <div class="col s12 m6 input-field card-cvv">
+                <input id="maskcvv" name="cvv" type="text">
                 <label for="#maskcvv">CVV</label>
             </div>
 
-            <div class="input-field card-installments">
+            <div class="col s12 input-field card-installments">
                 <select name="installments" id="" class="select">
-                    <option value="1">à vista</option>
+                    <option value="1" selected>à vista</option>
                     <option value="2">2 X</option>
                     <option value="3">3 X</option>
                     <option value="4">4 X</option>
@@ -78,7 +78,7 @@
                 </select>
                 <label for="#installments">Parcelamento</label>
             </div>
-        </form>
+        </div>
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-close btn waves-effect waves-light red">Cancelar</a>

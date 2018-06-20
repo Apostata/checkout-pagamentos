@@ -20,7 +20,7 @@ let fillAddressFields = (input, data) =>{
     parent.querySelector('[id*=endereco]').value = data.logradouro;
     parent.querySelector('label[for*=endereco]').classList.add('active');
 
-    parent.querySelector('[id*=numeroEnd]').focus();
+    parent.querySelector('[id*=numero]').focus();
 };
 
 let cpf = input => {        

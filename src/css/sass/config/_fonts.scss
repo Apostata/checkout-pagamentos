@@ -19,7 +19,7 @@ $title-counter: 7;
         h#{$title-counter}, .#{$font-index}{
             font-size: $font-size;
             font-size: calculateRem($font-size);
-            margin: 0 0 20px;
+            margin: 15 0 15px;
         }
     }
 

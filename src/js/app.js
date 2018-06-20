@@ -64,7 +64,7 @@ export default class CheckoutPage {
     initialize (){
         this.setFieldMasks();
         let cardModal = new CardModal({
-            modal: '#modal1',
+            modal: '#modal-credit-card',
             card:{
                 outputNumber:'.outputNumber',
                 outputName:'.outputName',
@@ -104,6 +104,10 @@ export default class CheckoutPage {
             Validation.validators[Object.keys(func)] = func[Object.keys(func)];
         });
         //Validation.init(form, true);
+        document.querySelectorAll('#numero').forEach(numberField =>{
+            new IMask(numberField, {mask: Number, min: 1, max: 10000});
+        });
+       
         this.setEvents();
     }
 
@@ -111,6 +115,7 @@ export default class CheckoutPage {
        this.setChangeTabEvent();
        this.setCheckboxShowArea();
        this.formSubmit();
+       this.selectPaymentMethod();
        this.form.querySelectorAll('input').forEach((elem)=>{
             this.blurInput(elem);
             if(elem.id ==="cep"){
@@ -357,12 +362,20 @@ export default class CheckoutPage {
                 }
                 else{
                     if(!this.errorFound){
-                        let abaError = HelperFunctions.getParentSelector(secao[0], '.aba'),
-                            selectedTab = abaError.className.split(' ').pop(),
-                            aba = document.querySelector(`.select-abas .${selectedTab} a`);
-                        
-                       aba.dispatchEvent(new Event('click'));
-                        
+                        let abaError = HelperFunctions.getParentSelector(secao[0], '.aba');
+                        if(abaError){
+                            let selectedTab = abaError.className.split(' ').pop(),
+                                aba = document.querySelector(`.select-abas .${selectedTab} a`);
+                            
+                            aba.dispatchEvent(new Event('click'));
+                        }       
+                        else{
+                            console.log(this.form.querySelector('.modal-trigger'));
+                            this.form.querySelector('.modal-trigger').dispatchEvent(new Event('click', {
+                                bubbles: true,
+                                view: window
+                            }))
+                        }                
                     }else{
                         this.errorFound = true;
                     }
@@ -386,21 +399,15 @@ export default class CheckoutPage {
                 if(HelperFunctions.isRequired(e.target)){
                     input.setAttribute('required', 'true');
                     Validation.checkInput(e.target)
+                    .then((res)=>{
+                        console.log(res);
+                    })
                     .catch((err)=>{
                         console.warn(err);
                     })
                 }
             }
         });
-    }
-
-    compradorIgualdestinatario(){
-        let destinatario = document.querySelector('#compradorIgualDestinatario');
-        if(this.isChecked(destinatario)){
-            //copia o endereco do faturamento;
-            return true;
-        }
-        return false;
     }
 
     cepFocus(elem){
@@ -410,6 +417,50 @@ export default class CheckoutPage {
             }
         })
     }
+
+    selectPaymentMethod(){
+        document.querySelectorAll('.pay-methods .custom-tab a').forEach((elem, idx)=>{
+            elem.addEventListener('click', (event)=>{
+                event.preventDefault();
+                for (let sibling of elem.parentNode.parentNode.children) {
+                    if(sibling.children[0] !== elem){
+                        if(sibling.classList.contains('active')) sibling.classList.remove('active');
+                    }
+                    else{
+
+                        let id = sibling.children[0].getAttribute('tab');
+                        let activeTab = document.querySelector(`.payment-desciption ${id}`);
+                        activeTab.classList.add('active');
+                        activeTab.parentNode.classList.add('active');
+
+                        if(id === "#credit-card"){
+                            HelperFunctions.setSections.bind(this)('#modal-credit-card', undefined);
+                            this.form.querySelector('#modal-credit-card').querySelectorAll('input').forEach((elem)=>{
+                                if(HelperFunctions.isRequired(elem) && !HelperFunctions.isDisabled(elem)) elem.setAttribute('required', 'true');
+                            });
+                        }
+                        else{
+                           
+                            HelperFunctions.setSections.bind(this)(undefined, '#modal-credit-card');
+                            this.form.querySelector('#modal-credit-card').querySelectorAll('input').forEach(function(elem){
+                                HelperFunctions.clearInput(elem);
+                            });
+                        }
+
+                        if(!sibling.classList.contains('active')) sibling.classList.add('active');
+                        
+                        for (let sibling of activeTab.parentNode.children) {
+                            if(sibling !== activeTab){
+                                if(sibling.classList.contains('active')) sibling.classList.remove('active');
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+
 };
 
 (function(){

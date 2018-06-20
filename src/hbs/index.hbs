@@ -42,16 +42,13 @@
                         {{> payment/payment-data }}                        
                     </div>
                     <button class="enviar waves-effect waves-light btn azul-claro waves-azul-claro" type="submit">Enviar</button>
-                   
+                   {{> modals/credit-card-modal }}
                 </form>
                 {{> cart-resume/resume }}
             </div>
            
-            <div class="row">
-                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Exemplo Checkout</a>
-            </div>
         </section>
         
-        {{> modals/credit-card-modal }}
+        
     </body>
 </html>

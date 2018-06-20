@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'credit-card';
-  src:  url('fonts/credit-card.eot?4ywizg');
-  src:  url('fonts/credit-card.eot?4ywizg#iefix') format('embedded-opentype'),
-    url('fonts/credit-card.ttf?4ywizg') format('truetype'),
-    url('fonts/credit-card.woff?4ywizg') format('woff'),
-    url('fonts/credit-card.svg?4ywizg#credit-card') format('svg');
+  src:  url('fonts/credit-card.eot?ce9xq6');
+  src:  url('fonts/credit-card.eot?ce9xq6#iefix') format('embedded-opentype'),
+    url('fonts/credit-card.ttf?ce9xq6') format('truetype'),
+    url('fonts/credit-card.woff?ce9xq6') format('woff'),
+    url('fonts/credit-card.svg?ce9xq6#credit-card') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.credit-card-mercadopago:before {
+  content: "\e90e";
+}
+.credit-card-dollar:before {
+  content: "\e911";
+}
+.credit-card-barcode:before {
+  content: "\e910";
+}
+.credit-card-PayPal:before {
+  content: "\e903";
+}
+.credit-card-pagSeguro:before {
+  content: "\e90f";
+}
 .credit-card-uoldiveo:before {
   content: "\e90d";
 }
