@@ -140,37 +140,37 @@ let cnpj = input => {
     });
 };
 
-let cep = function(input,  callback = fillAddressFields){
-    return new Promise((valid, invalid)=>{
-        
-        if(input.id ==='cep' && input.getAttribute('required') !== null ){
-            let cep = input.value,
-                url = `http://viacep.com.br/ws/${cep}/json/`;
+let cep = (input, callback = fillAddressFields) =>{
+    return new Promise(function(valid, invalid) {
+        if(input.id ==='cep' && input.getAttribute('required') !== null && input.getAttribute('filled') === null && input.value !== '' && input.value.length === 9){
+            let req = new XMLHttpRequest(),
+                cep = input.value;
             cep = cep.replace(/[^\d]+/g,'');
-            
-            axios.get(url)
-            .then(function (response) {
-                if(response.data.erro){
+            let url = `http://viacep.com.br/ws/${cep}/json/`;
+                
+                
+            req.open("GET", url);
+            req.onload = function() {
+                if (req.status === 200) {
+                    input.setAttribute('filled', true);
+                    callback(input, JSON.parse(req.response));
+                    valid();
+                } else {
                     invalid();
                 }
-                else{
-                    callback(input, response.data);
-                    valid();
-                }
-                    
-                    
-            })
-            .catch(function (error) {
-                console.log(error);
+            };
+    
+            req.onerror = function() {
                 invalid();
-            });
+            };
+    
+            req.send();
         }
         else{
             valid();
         }
     });
-};
-
+}
 
 export const validationConfig = {
     
