@@ -113,6 +113,9 @@ export default class CheckoutPage {
        this.formSubmit();
        this.form.querySelectorAll('input').forEach((elem)=>{
             this.blurInput(elem);
+            if(elem.id ==="cep"){
+                this.cepFocus(elem);
+            }
        });
     }
 
@@ -187,6 +190,7 @@ export default class CheckoutPage {
                 
                 let target = this.getAttribute('target').split(', ');
                 let show = document.querySelector(target[0]);
+
                 if(target.length > 1){
             
                     let hide = document.querySelector(target[1]);
@@ -200,6 +204,16 @@ export default class CheckoutPage {
                             show.querySelectorAll('input').forEach(function(elem){
                                 if(HelperFunctions.isRequired(elem)) elem.setAttribute('required', 'true');
                             });
+
+                            if(this.id === 'pessoaJuridica'){
+                                let compradorIgualDestinatario = document.querySelector('#compradorIgualDestinatario');
+                                
+                                if(HelperFunctions.isChecked(compradorIgualDestinatario)){
+                                    compradorIgualDestinatario.checked = false;
+                                    compradorIgualDestinatario.dispatchEvent(new Event('change'));
+                                    compradorIgualDestinatario.setAttribute('disabled', true);
+                                }
+                            }
                         }
 
                         if(HelperFunctions.isInputOrSelect(hide)){
@@ -224,7 +238,13 @@ export default class CheckoutPage {
                             show.querySelectorAll('input').forEach(function(elem){
                                HelperFunctions.clearInput(elem);
                             });
-                            //Validation.validateSection(show).then(result => {console.log(`clear validation on ${show.id}`)})
+                            if(this.id === 'pessoaJuridica'){
+                                let compradorIgualDestinatario = document.querySelector('#compradorIgualDestinatario');
+                                
+                                if(compradorIgualDestinatario.getAttribute('disabled') !== null){
+                                    compradorIgualDestinatario.removeAttribute('disabled');
+                                }
+                            }
                         }
 
                         if(HelperFunctions.isInputOrSelect(hide)){
@@ -239,6 +259,7 @@ export default class CheckoutPage {
                         HelperFunctions.setSections.bind(_this)(`#${hide.id}`, `#${show.id}`);
                     }
                 }
+
                 else{
                     if(HelperFunctions.isChecked(this)){
                         if(HelperFunctions.isInputOrSelect(show)){
@@ -306,7 +327,10 @@ export default class CheckoutPage {
             });
 
             if(section === "#endereco-faturamento"){
-                let endEntrega = document.querySelector('#enderecoEntrega');
+                let endEntrega = document.querySelector('#enderecoEntrega'),
+                    compradorIgualdestinatario = document.querySelector('#compradorIgualDestinatario'),
+                    pessoaJuridica = document.querySelector('#pessoaJuridica'); 
+
                 if(HelperFunctions.isChecked(endEntrega)){
                     HelperFunctions.copySectionFields({
                         from:{
@@ -328,17 +352,16 @@ export default class CheckoutPage {
             this.isValid = [];
 
             result.forEach((secao)=>{
-                console.log(secao);
 ;                if (secao === true) {
                     this.isValid.push(true);
                 }
                 else{
                     if(!this.errorFound){
                         let abaError = HelperFunctions.getParentSelector(secao[0], '.aba'),
-                            selectedTab = abaError.className.split(' ').pop();
-                      
+                            selectedTab = abaError.className.split(' ').pop(),
+                            aba = document.querySelector(`.select-abas .${selectedTab} a`);
                         
-                        document.querySelector(`.select-abas .${selectedTab} a`).dispatchEvent(new Event('click'));
+                       aba.dispatchEvent(new Event('click'));
                         
                     }else{
                         this.errorFound = true;
@@ -347,14 +370,12 @@ export default class CheckoutPage {
                 }
             });
 
-            //continuar daqui
-            
-            // if(!this.isValid.contains(false)){
-            //     console.log(HelperFunctions.serializeToJson(this.form));
-            // }
+            if(!this.isValid.includes(false)){
+                console.log(HelperFunctions.serializeToJson(this.form));
+            }
 
         }).catch((err)=>{
-            console.log(err)
+            console.warn(err);
         })
 
     }
@@ -380,6 +401,14 @@ export default class CheckoutPage {
             return true;
         }
         return false;
+    }
+
+    cepFocus(elem){
+        elem.addEventListener('focus', function(){
+            if(this.getAttribute('filled')!==null){
+                this.removeAttribute('filled');
+            }
+        })
     }
 };
 
