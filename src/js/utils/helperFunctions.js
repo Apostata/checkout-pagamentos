@@ -106,4 +106,10 @@ export default class HelperFunctions{
         });
         return json;
     }
+
+    static hideCompradorIguaDestinatario(checkbox){
+        checkbox.checked = false;
+        checkbox.dispatchEvent(new Event('change'));
+        checkbox.setAttribute('disabled', true);
+    }
 };

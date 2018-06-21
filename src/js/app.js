@@ -214,11 +214,7 @@ export default class CheckoutPage {
                             if(this.id === 'pessoaJuridica'){
                                 let compradorIgualDestinatario = document.querySelector('#compradorIgualDestinatario');
                                 
-                                if(HelperFunctions.isChecked(compradorIgualDestinatario)){
-                                    compradorIgualDestinatario.checked = false;
-                                    compradorIgualDestinatario.dispatchEvent(new Event('change'));
-                                    compradorIgualDestinatario.setAttribute('disabled', true);
-                                }
+                                HelperFunctions.hideCompradorIguaDestinatario(compradorIgualDestinatario);
                             }
                         }
 
@@ -372,11 +368,10 @@ export default class CheckoutPage {
                             aba.dispatchEvent(new Event('click'));
                         }       
                         else{
-                            console.log(this.form.querySelector('.modal-trigger'));
                             this.form.querySelector('.modal-trigger').dispatchEvent(new Event('click', {
                                 bubbles: true,
                                 view: window
-                            }))
+                            }));
                         }                
                     }
                     else{
@@ -402,9 +397,6 @@ export default class CheckoutPage {
                 if(HelperFunctions.isRequired(e.target)){
                     input.setAttribute('required', 'true');
                     Validation.checkInput(e.target)
-                    .then((res)=>{
-                        console.log(res);
-                    })
                     .catch((err)=>{
                         console.warn(err);
                     })
@@ -425,9 +417,10 @@ export default class CheckoutPage {
         document.querySelectorAll('.pay-methods .custom-tab a').forEach((elem, idx)=>{
             elem.addEventListener('click', (event)=>{
                 event.preventDefault();
-                document.querySelector("#isSelectedPayMethod").classList.remove('required');
-                HelperFunctions.clearInput(document.querySelector("#isSelectedPayMethod"));
-
+              
+                let selectedPayMethod = elem.getAttribute('tab');
+                selectedPayMethod = selectedPayMethod.substring(1);
+                document.querySelector("#selectedPayMethod").value = selectedPayMethod;//.classList.remove('required');
                 for (let sibling of elem.parentNode.parentNode.children) {
                     if(sibling.children[0] !== elem){
                         if(sibling.classList.contains('active')) sibling.classList.remove('active');
@@ -441,7 +434,7 @@ export default class CheckoutPage {
 
                         if(id === "#credit-card"){
                             HelperFunctions.setSections.bind(this)('#modal-credit-card', undefined);
-                            this.form.querySelector('#modal-credit-card').querySelectorAll('input').forEach((elem)=>{
+                            this.form.querySelector('#modal-credit-card').querySelectorAll('input, select').forEach((elem)=>{
                                 if(HelperFunctions.isRequired(elem) && !HelperFunctions.isDisabled(elem)) elem.setAttribute('required', 'true');
                             });
                         }

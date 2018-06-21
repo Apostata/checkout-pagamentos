@@ -94,7 +94,9 @@ export default class CardModal {
             else{
                 document.querySelector(_this.card.outputNumber).innerHTML = this.value;
             }
-            validationConfig.validationFunctions[3].creditCard(this, _this.setBrand.bind(_this))
+            if(number.length >= 15){
+                validationConfig.validationFunctions[3].creditCard(this, _this.setBrand.bind(_this)).catch((e)=>{});
+            }
         });
 
         document.querySelector(_this.mask.name).addEventListener('keyup', function(){

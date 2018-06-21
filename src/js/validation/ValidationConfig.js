@@ -187,7 +187,7 @@ const cep = (input, callback = fillAddressFields) =>{
 
 const creditCard = (input, callback = ()=>{}) =>{
     return new Promise((valid, invalid)=>{
-        if(input.id ='creditCard' && input.getAttribute('required') !== null && input.value !== '' && input.value.length > 0){
+        if(input.id === 'creditCard' && input.getAttribute('required') !== null && input.value !== '' && input.value.length > 0){
             let number = input.value.replace(/[^\d]+/g,'');
 
             let isValid = Object.keys(cardBrands).filter((idx)=>{
@@ -221,10 +221,10 @@ export const validationConfig = {
     
     language:{
         required: "O campo '{label}' é obrigatório!",
+        creditCard: "Número do cartão de crédito inválido",
         cpf: "{label} digite um cpf válido",
         cnpj: "{label} digite um cnpj válido",
         cep: "{label} insira um cep válido",
-        creditCard: "Número do cartão de crédito inválido",
         email: "'{label}' deve ser um e-mail válido!",
         tel: "'{label}' não é um número válido de telefone!",
         telefone: "'{label}' não é um número válido de telefone!",
