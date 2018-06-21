@@ -320,7 +320,7 @@ export default class CheckoutPage {
     }
 
     formSubmit(){
-        this.form.querySelectorAll('.enviar').forEach((btn)=>{
+        document.querySelectorAll('.enviar').forEach((btn)=>{
             btn.addEventListener('click', (e)=>{
                 e.preventDefault();
                 this.validateSections();
