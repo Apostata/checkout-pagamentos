@@ -106,19 +106,6 @@ body{
                 }
             }
 
-            // .input-field{
-            //     flex: 1 100%;
-            //     box-sizing: border-box;
-            //     padding: 5px 15px;
-            //     margin: 0.5rem 0;
-            //     height: 3rem;
-
-            //     label{
-            //         padding-left: 15px;
-            //     }
-            // }
-
-
             .dropdown-content{
                 background: transparent;
                 top: inherit!important;
@@ -439,140 +426,25 @@ body{
         //perspective: 1000px;
         z-index: 9;
         min-height: 350px;
-    }
-
-    .abas{
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        width: 100%;
-        perspective-origin: 200%;
-        perspective: 1000px;
-
-        .select-abas{
-            li{
-                transition: all 300ms ease-in-out;
-                a{
-                    min-height: 46px;
-                }
-
-                &.card-header{
-                    &.first{
-                        transform: translate3d(-15px, 0px, -17px) rotateX(0deg) rotateY(0deg);
-                        background: white;
-                        max-width: 215px;
-                        z-index: 3;
-            
-                        h2{
-                            font-size: calculateRem(26px);
-                        }
-            
-                        &:after{
-                            background: radial-gradient(circle 1px at -7% 9%,transparent,transparent 28px, white);
-                        }
-                    }
-                    &.second{
-                        transform: translate3d(-30px, 0px, -30px) rotateX(0deg) rotateY(-0.5deg);
-                        background: darken(white, 5%);
-                        max-width: 210px;
-                        z-index: 2;
-            
-                        h2{
-                            font-size: calculateRem(24px);
-                        }
-            
-                        &:after{
-                            background: radial-gradient(circle 1px at -7% 9%,transparent,transparent 28px, darken(white, 5%));
-                        }
-                        
-                        h2{
-                            font-size: calculateRem(24px);
-                        }
-            
-                        &:after{
-                            background: radial-gradient(circle 1px at -7% 9%,transparent,transparent 28px, darken(white, 5%));
-                        }
-                    }
-                    &.third{
-                        transform: translate3d(-50px, 0px, -45px) rotateX(0deg) rotateY(-0.5deg);
-                        background: darken(white, 10%);
-                        max-width: 205px;
-                        z-index: 1;
-            
-                        h2{
-                            font-size: calculateRem(22px);
-                        }
-            
-                        &:after{
-                            background: radial-gradient(circle 1px at -7% 9%,transparent,transparent 28px, darken(white, 10%));
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
+    } 
 
     .boxes{
         position: absolute;
-        top: 51px;
+        top: 48px;
         left: 0;
         width: 100%;
         height: auto; 
         z-index: 2;  
         perspective-origin: 200%;
-        perspective: 1000px;    
-    }
-
-    .aba{
-        transition: all 250ms ease-out 0ms;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        //@extend .animation-change-card;
-       
-        .card{
-            min-width: 100%;
-            min-height: 312px;
-        }
-
-        &.first{
-            transform: translate3d(0%, 0px, -15px) rotateX(0deg) rotateY(0deg);
-            z-index: 3;
-
-            .card{
-                background: white;
-            }
-        }
-
-        &.second{
-            transform: translate3d(5px, 0px, -30px) rotateX(0deg) rotateY(-0.5deg);
-            z-index: 2;
-
-            .card{
-                background: darken(white, 5%);
-            }
-
-        }
-
-        &.third{
-            transform: translate3d(5px, 0px, -45px) rotateX(0deg) rotateY(-0.5deg);
+        perspective: 1000px;   
+        
+        @media screen and ($mobile){
+            top: 110px;
             z-index: 1;
-
-            .card{
-                background: darken(white, 10%);
-            }
         }
-    }        
-
-
-    .enviar{
-        // position: absolute;
-        // bottom: -30px;
-        // left: 0;
     }
+
+    @import 'sass/new-components/tabs.scss';
 
     #payment-inf{
         .pay-methods{
@@ -595,6 +467,7 @@ body{
                         text-align: center;
                         line-height: 40px;
 
+
                         &.credit-card-pagSeguro{
                             font-size: 80px;
                         }
@@ -606,7 +479,12 @@ body{
                         &.credit-card-mercadopago{
                             font-size: 60px;
                         }
+                    }
 
+                    &.pagSeguro, &.payPal, &.mercadoPago{
+                        span{
+                            display: none;
+                        }
                     }
                 }
 
@@ -627,6 +505,18 @@ body{
                         width: 2px;
                         background-color: map-get($cores, 'cinza-claro'); 
                         z-index: 9;                       
+                    }
+
+                    
+                }
+
+                @media screen and ($mobile){
+                    display: inline-block;
+                    &.active{
+                        padding-left: 0px;
+                    }
+                    a{
+                        padding-right: 10px;
                     }
                 }
             }
@@ -649,6 +539,10 @@ body{
             box-sizing: border-box;
             padding: 15px;
             transition: all 300ms ease-in-out 0ms;
+
+            @media screen and ($mobile){
+                margin-left: 0px;
+            }
 
             &.active{
                 background: map-get($cores, 'cinza-claro');

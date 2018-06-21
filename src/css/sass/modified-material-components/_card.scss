@@ -1,4 +1,5 @@
 @import '../config/colors';
+@import '../config/sizes';
 
 .card{
     & > .row{
@@ -10,6 +11,9 @@
 #checkout{
     .card{
         border-radius: 0 10px 10px 10px;
+        @media screen and ($mobile){
+            border-radius: 0 0 10px 10px;
+        }
     }
 
     .pannels{

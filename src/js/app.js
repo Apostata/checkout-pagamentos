@@ -63,6 +63,8 @@ export default class CheckoutPage {
     }
 
     initialize (){
+        HelperFunctions.getMinHeigthTabs();
+        
         this.setFieldMasks();
         let cardModal = new CardModal({
             modal: '#modal-credit-card',
@@ -126,6 +128,11 @@ export default class CheckoutPage {
     }
 
     setChangeTabEvent(){
+        
+        window.onresize = function(){
+            HelperFunctions.getMinHeigthTabs();
+        };
+
         document.querySelectorAll('.select-abas .card-header a')
         .forEach((aba, index) =>{
             aba.addEventListener('click', function(e){

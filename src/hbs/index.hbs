@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="row pannels">
-                <form action="#" id ="checkout-form" class="col s12 m7">
+                <form action="#" id ="checkout-form" class="col s12 m8 l7">
                      <div class="row abas">
                         <div class="col s12">
 
@@ -41,10 +41,17 @@
                         {{> payment/delivery-data }}
                         {{> payment/payment-data }}                        
                     </div>
-                    <button class="enviar waves-effect waves-light btn azul-claro waves-azul-claro" type="submit">Enviar</button>
                    {{> modals/credit-card-modal }}
+                   
                 </form>
-                {{> cart-resume/resume }}
+                <div class="cart-resume col s12 m4 l5">
+                    {{> cart-resume/resume }}
+                    <button href="#!" class="btn waves-effect waves-light blue enviar" type="submit">
+                        <i class="material-icons dp48">payment</i>
+                        Pagar
+                    </button>
+                </div>
+                
             </div>
            
         </section>

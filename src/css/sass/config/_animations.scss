@@ -1,23 +1,44 @@
 @keyframes changeCard{
-   
     50%{
         transform: translateX(50px) translateZ(0px)  translateY(-10px) ;
     }
-    
 }
 
 @keyframes changeCardHeader{
-   
     50%{
         transform: translateX(40px) translateZ(0px)  translateY(-10px) ;
     }
-    
+}
+
+@keyframes changeCardHeaderMobile{
+    50%{
+        margin-top: -10px ;
+    }
+}
+
+@keyframes changeCardMobile{
+    50%{
+        transform: translateX(0px) translateZ(0px)  translateY(-30px) ;
+    }
 }
 
 .animation-change-card{
-    animation: changeCard linear 0.5s 0s;
+    @media screen and ($mobile){
+        animation: changeCardMobile linear 0.3s 0s;
+    }
+
+    @media screen and ($afterMobile){
+        animation: changeCard linear 0.5s 0s;
+    }
 }
 
 .animation-change-cardHeader{
-    animation: changeCardHeader linear 0.5s 0s;
+    @media screen and ($mobile){
+        animation: changeCardHeaderMobile linear 0.3s 0s;
+    }
+
+    @media screen and ($afterMobile){
+        animation: changeCardHeader linear 0.5s 0s;
+    }
+    
 }

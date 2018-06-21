@@ -112,4 +112,28 @@ export default class HelperFunctions{
         checkbox.dispatchEvent(new Event('change'));
         checkbox.setAttribute('disabled', true);
     }
+
+    static getMinHeigthTabs(){
+        let minHeight = 0,
+            selecetdHeigth = 0,
+            maxHeight = window.innerHeight;
+
+        document.querySelectorAll('.aba').forEach((aba)=>{
+            if(aba.clientHeight > minHeight){
+                minHeight = aba.clientHeight;
+
+                if(aba.clientHeight > maxHeight){
+                    selecetdHeigth = maxHeight;
+                }
+                else{
+                    selecetdHeigth = aba.clientHeight;
+                }
+                
+            }
+        });
+        document.querySelectorAll('.aba').forEach((aba)=>{
+            aba.querySelector('.card-content').style.minHeight = `${selecetdHeigth}px`;
+        });
+        document.querySelector('#checkout-form').style.minHeight = `${minHeight + 50}px`;
+    }
 };
