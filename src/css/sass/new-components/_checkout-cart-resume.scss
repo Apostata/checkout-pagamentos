@@ -16,5 +16,17 @@
             max-width: 92%;
             transform: translateZ(-40px) rotateX(0deg) rotateY(0deg);
         }
+
+        @media screen and ($mobile){
+            .card{
+                max-width: 100%;
+                transform: translateZ(0) rotateX(0deg) rotateY(0deg);
+            }
+
+            & > button{
+                max-width: 100%;
+                transform: translateZ(0px) rotateX(0deg) rotateY(0deg);
+            }
+        }
     }   
 }
