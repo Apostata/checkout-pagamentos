@@ -57,8 +57,8 @@ body{
 
 .modal{
     max-width: 600px;
-    max-height: 100%;
     outline: none;
+    max-height: 90%!important;
 
     .modal-header{
         h4, p{
@@ -77,6 +77,10 @@ body{
         .credit-card{
             *{
                 color: white;
+            }
+
+            .text-error{
+                color: map-get($cores, 'laranja-escuro');
             }
             
             input[type=text]{
@@ -102,17 +106,17 @@ body{
                 }
             }
 
-            .input-field{
-                flex: 1 100%;
-                box-sizing: border-box;
-                padding: 5px 15px;
-                margin: 0.5rem 0;
-                height: 3rem;
+            // .input-field{
+            //     flex: 1 100%;
+            //     box-sizing: border-box;
+            //     padding: 5px 15px;
+            //     margin: 0.5rem 0;
+            //     height: 3rem;
 
-                label{
-                    padding-left: 15px;
-                }
-            }
+            //     label{
+            //         padding-left: 15px;
+            //     }
+            // }
 
 
             .dropdown-content{
@@ -565,9 +569,9 @@ body{
 
 
     .enviar{
-        position: absolute;
-        bottom: -30px;
-        left: 0;
+        // position: absolute;
+        // bottom: -30px;
+        // left: 0;
     }
 
     #payment-inf{
@@ -581,6 +585,7 @@ body{
                     color:map-get($cores , 'cinza-medio');
                     display: block;
                     padding: 5px;
+                    cursor: pointer;
 
                     i{
                         font-size: 35px;
@@ -617,7 +622,7 @@ body{
                         content: "";
                         display: block;
                         top: 0;
-                        right: 0px;
+                        right: 1px;
                         height: 100%;
                         width: 2px;
                         background-color: map-get($cores, 'cinza-claro'); 

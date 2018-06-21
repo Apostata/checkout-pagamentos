@@ -1,6 +1,19 @@
 import axios from 'axios';
 
-let fillAddressFields = (input, data) =>{
+export const cardBrands = {
+    "jcb": /^(?:2131|1800|35\d{3})\d{11}$/,
+    "elo": /^(401178|401179|431274|438935|451416|457393|457631|457632|504175|627780|636297|636368|(506699|5067[0-6]\d|50677[0-8])|(50900\d|5090[1-9]\d|509[1-9]\d{2})|65003[1-3]|(65003[5-9]|65004\d|65005[0-1])|(65040[5-9]|6504[1-3]\d)|(65048[5-9]|65049\d|6505[0-2]\d|65053[0-8])|(65054[1-9]| 6505[5-8]\d|65059[0-8])|(65070\d|65071[0-8])|65072[0-7]|(65090[1-9]|65091\d|650920)|(65165[2-9]|6516[6-7]\d)|(65500\d|65501\d)|(65502[1-9]|6550[3-4]\d|65505[0-8]))[0-9]{10,12}/,
+    "discover": /^65[4-9][0-9]{13}|64[4-9][0-9]{13}|6011[0-9]{12}|(622(?:12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})$/,
+    "diners": /^3(?:0[0-5]|[68][0-9])[0-9]{11}$/,
+    "hipercard": /^(38[0-9]{17}|60((?!11|11)\d){2}[0-9]{12})$/,
+    "amex": /^3[47][0-9]{13}$/,
+    "aura": /^50((?!66)\d){2}[0-9]{12,15}$/,
+    "mastercard": /^5[1-5][0-9]{14}$/,
+    "visa": /^4[0-9]{12}(?:[0-9]{3})?$/,
+    
+};
+
+const fillAddressFields = (input, data) =>{
     let getParent = function(elem, selector){
         for ( ; elem && elem !== document; elem = elem.parentNode ) {
             if ( elem.matches( selector ) ) return elem;
@@ -23,7 +36,7 @@ let fillAddressFields = (input, data) =>{
     parent.querySelector('[id*=numero]').focus();
 };
 
-let cpf = input => {        
+const cpf = input => {        
     return new Promise((valid, invalid)=>{
        if(input.id ==='cpf' && input.getAttribute('required') !== null ){
            
@@ -74,7 +87,7 @@ let cpf = input => {
     });
 };
 
-let cnpj = input => {
+const cnpj = input => {
     return new Promise((valid, invalid)=>{
         
         if(input.id ==='cnpj' && input.getAttribute('required') !== null ){
@@ -140,9 +153,9 @@ let cnpj = input => {
     });
 };
 
-let cep = (input, callback = fillAddressFields) =>{
+const cep = (input, callback = fillAddressFields) =>{
     return new Promise(function(valid, invalid) {
-        if(input.id ==='cep' && input.getAttribute('required') !== null && input.getAttribute('filled') === null && input.value !== '' && input.value.length === 9){
+        if(input.id ==='cep' && input.getAttribute('required') !== null && input.getAttribute('filled') === null && input.value !== '' && input.value.length > 0){
             let req = new XMLHttpRequest(),
                 cep = input.value;
             cep = cep.replace(/[^\d]+/g,'');
@@ -172,6 +185,38 @@ let cep = (input, callback = fillAddressFields) =>{
     });
 }
 
+const creditCard = (input, callback = ()=>{}) =>{
+    return new Promise((valid, invalid)=>{
+        if(input.id ='creditCard' && input.getAttribute('required') !== null && input.value !== '' && input.value.length > 0){
+            let number = input.value.replace(/[^\d]+/g,'');
+
+            let isValid = Object.keys(cardBrands).filter((idx)=>{
+                let matched = number.match(cardBrands[idx]);
+                
+                if(matched !== null){
+                    
+                    return idx;
+                }
+                else{
+                   return false;
+                }
+            });
+            if(isValid.length > 0){
+                callback(isValid[0]);
+                valid();
+            }
+            else{
+                invalid();
+            }
+        }
+        else{
+            valid();
+        }
+    });
+}
+
+
+
 export const validationConfig = {
     
     language:{
@@ -179,6 +224,7 @@ export const validationConfig = {
         cpf: "{label} digite um cpf válido",
         cnpj: "{label} digite um cnpj válido",
         cep: "{label} insira um cep válido",
+        creditCard: "Número do cartão de crédito inválido",
         email: "'{label}' deve ser um e-mail válido!",
         tel: "'{label}' não é um número válido de telefone!",
         telefone: "'{label}' não é um número válido de telefone!",
@@ -213,6 +259,7 @@ export const validationConfig = {
     validationFunctions:[
         {cpf},
         {cnpj},
-        {cep}
+        {cep},
+        {creditCard}
     ]
 };

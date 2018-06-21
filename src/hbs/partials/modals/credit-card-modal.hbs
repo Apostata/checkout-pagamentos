@@ -42,7 +42,7 @@
         </div>
         <div class="credit-card">
             <div class="col s12 input-field card-number">
-                <input id="masknumber" name="numeroCartao" type="text" class="required">
+                <input id="creditCard" name="numeroCartao" type="text" class="required">
                 <label for="#masknumber">Número</label>
             </div>
 
@@ -57,13 +57,13 @@
             </div>
 
             <div class="col s12 m6 input-field card-cvv">
-                <input id="maskcvv" name="cvv" type="text">
+                <input id="maskcvv" name="cvv" type="text" class="required">
                 <label for="#maskcvv">CVV</label>
             </div>
 
             <div class="col s12 input-field card-installments">
                 <select name="installments" id="" class="select">
-                    <option value="1" selected>à vista</option>
+                    <option value="1" selected="selected" >à vista</option>
                     <option value="2">2 X</option>
                     <option value="3">3 X</option>
                     <option value="4">4 X</option>
@@ -82,9 +82,9 @@
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-close btn waves-effect waves-light red">Cancelar</a>
-        <a href="#!" class="btn waves-effect waves-light blue">
+        <button href="#!" class="btn waves-effect waves-light blue enviar" type="submit">
             <i class="material-icons dp48">payment</i>
-            Pagar
-        </a>
+             Pagar
+        </button>
     </div>
 </div>

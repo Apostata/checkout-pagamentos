@@ -52,7 +52,8 @@ export default class CheckoutPage {
         this.sections =[
             '#pessoa-fisica',
             '#geral',
-            '#endereco-faturamento'
+            '#endereco-faturamento',
+            "#payment-inf"
         ];
 
         this.form = '';
@@ -73,7 +74,7 @@ export default class CheckoutPage {
                 outputCvv:'.outputCvv'
             },
             mask:{
-                number:'#masknumber',
+                number:'#creditCard',
                 name: '#maskname',
                 expDate:'#maskexpdate',
                 cvv:'#maskcvv'
@@ -316,10 +317,11 @@ export default class CheckoutPage {
     }
 
     formSubmit(){
-        this.form.querySelector('.enviar')
-        .addEventListener('click', (e)=>{
-            e.preventDefault();
-            this.validateSections();
+        this.form.querySelectorAll('.enviar').forEach((btn)=>{
+            btn.addEventListener('click', (e)=>{
+                e.preventDefault();
+                this.validateSections();
+            });
         });
     }
 
@@ -376,7 +378,8 @@ export default class CheckoutPage {
                                 view: window
                             }))
                         }                
-                    }else{
+                    }
+                    else{
                         this.errorFound = true;
                     }
                     this.isValid.push(false);
@@ -422,6 +425,9 @@ export default class CheckoutPage {
         document.querySelectorAll('.pay-methods .custom-tab a').forEach((elem, idx)=>{
             elem.addEventListener('click', (event)=>{
                 event.preventDefault();
+                document.querySelector("#isSelectedPayMethod").classList.remove('required');
+                HelperFunctions.clearInput(document.querySelector("#isSelectedPayMethod"));
+
                 for (let sibling of elem.parentNode.parentNode.children) {
                     if(sibling.children[0] !== elem){
                         if(sibling.classList.contains('active')) sibling.classList.remove('active');
