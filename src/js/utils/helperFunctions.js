@@ -148,14 +148,15 @@ export default class HelperFunctions{
         return { top: _y, left: _x };
     }
 
-    static linearSimpleAnim(tempo, valor){
+    static linearSimpleAnim(tempo, elem, direction){
+        let valor = HelperFunctions.getOffset(elem)[direction] + HelperFunctions.getOffset(document.documentElement)[direction]
         var running= 0;
         var intervalo = valor / tempo;
+        console.log(valor);
         var anim = setInterval(scrollto, 1);
-
-        function scrollto(add = running){
+        function scrollto(){
             if(running <= tempo){
-                window.scrollBy(0, -(intervalo*running));
+                window.scrollBy(0, (intervalo*running));
             }else{
 
                 clearInterval(anim);

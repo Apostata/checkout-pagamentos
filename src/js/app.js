@@ -361,35 +361,53 @@ export default class CheckoutPage {
         .then((result)=>{
             this.isValid = [];
 
-            result.forEach((secao)=>{
-;                if (secao === true) {
-                    this.isValid.push(true);
-                }
-                else{
-                    if(!this.errorFound){
-                        let abaError = HelperFunctions.getParentSelector(secao[0], '.aba');
-                        if(abaError){
-                            let selectedTab = abaError.className.split(' ').pop(),
-                                aba = document.querySelector(`.select-abas .${selectedTab} a`);
-                            HelperFunctions.linearSimpleAnim(300, HelperFunctions.getOffset(secao[0]).top);
-                            aba.dispatchEvent(new Event('click'));
-                        }       
-                        else{
-                            this.form.querySelector('.modal-trigger').dispatchEvent(new Event('click', {
-                                bubbles: true,
-                                view: window
-                            }));
-                        }                
+            try {
+                result.forEach((secao)=>{
+    ;                if (secao === true) {
+                        this.isValid.push(true);
                     }
                     else{
-                        this.errorFound = true;
+                        if(!this.errorFound){
+                            // let abaError = HelperFunctions.getParentSelector(secao[0], '.aba');
+                            // if(abaError){
+                            //     let selectedTab = abaError.className.split(' ').pop(),
+                            //         aba = document.querySelector(`.select-abas .${selectedTab} a`);
+                            //     HelperFunctions.linearSimpleAnim(300, secao[0], 'top');
+                            //     aba.dispatchEvent(new Event('click'));
+                            // }       
+                            // else{
+                            //     this.form.querySelector('.modal-trigger').dispatchEvent(new Event('click', {
+                            //         bubbles: true,
+                            //         view: window
+                            //     }));
+                            // } 
+                            throw secao;               
+                        }
+                        else{
+                            this.errorFound = true;
+                        }
+                        this.isValid.push(false);
                     }
-                    this.isValid.push(false);
-                }
-            });
+                });
 
-            if(!this.isValid.includes(false)){
-                console.log(HelperFunctions.serializeToJson(this.form));
+                if(!this.isValid.includes(false)){
+                    console.log(HelperFunctions.serializeToJson(this.form));
+                }
+            }
+            catch(secao){
+                let abaError = HelperFunctions.getParentSelector(secao[0], '.aba');
+                if(abaError){
+                    let selectedTab = abaError.className.split(' ').pop(),
+                        aba = document.querySelector(`.select-abas .${selectedTab} a`);
+                    HelperFunctions.linearSimpleAnim(300, secao[0], 'top');
+                    aba.dispatchEvent(new Event('click'));
+                }       
+                else{
+                    this.form.querySelector('.modal-trigger').dispatchEvent(new Event('click', {
+                        bubbles: true,
+                        view: window
+                    }));
+                }
             }
 
         }).catch((err)=>{
