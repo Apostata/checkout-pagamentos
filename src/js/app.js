@@ -371,7 +371,7 @@ export default class CheckoutPage {
                         if(abaError){
                             let selectedTab = abaError.className.split(' ').pop(),
                                 aba = document.querySelector(`.select-abas .${selectedTab} a`);
-                            
+                            HelperFunctions.linearSimpleAnim(300, HelperFunctions.getOffset(secao[0]).top);
                             aba.dispatchEvent(new Event('click'));
                         }       
                         else{

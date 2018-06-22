@@ -136,4 +136,31 @@ export default class HelperFunctions{
         });
         document.querySelector('#checkout-form').style.minHeight = `${minHeight + 50}px`;
     }
+
+    static getOffset(elem)  {
+        var _x = 0;
+        var _y = 0;
+        while( elem && !isNaN( elem.offsetLeft ) && !isNaN( elem.offsetTop ) ) {
+            _x += elem.offsetLeft - elem.scrollLeft;
+            _y += elem.offsetTop - elem.scrollTop;
+            elem = elem.offsetParent;
+        }
+        return { top: _y, left: _x };
+    }
+
+    static linearSimpleAnim(tempo, valor){
+        var running= 0;
+        var intervalo = valor / tempo;
+        var anim = setInterval(scrollto, 1);
+
+        function scrollto(add = running){
+            if(running <= tempo){
+                window.scrollBy(0, -(intervalo*running));
+            }else{
+
+                clearInterval(anim);
+            }
+            running++;
+        }               
+    }
 };
