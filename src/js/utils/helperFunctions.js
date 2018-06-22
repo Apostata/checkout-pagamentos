@@ -131,9 +131,9 @@ export default class HelperFunctions{
                 
             }
         });
-        document.querySelectorAll('.aba').forEach((aba)=>{
-            aba.querySelector('.card-content').style.minHeight = `${selecetdHeigth}px`;
-        });
+        // document.querySelectorAll('.aba').forEach((aba)=>{
+        //     aba.querySelector('.card-content').style.minHeight = `${selecetdHeigth}px`;
+        // });
         document.querySelector('#checkout-form').style.minHeight = `${minHeight + 50}px`;
     }
 
@@ -152,7 +152,6 @@ export default class HelperFunctions{
         let valor = HelperFunctions.getOffset(elem)[direction] + HelperFunctions.getOffset(document.documentElement)[direction]
         var running= 0;
         var intervalo = valor / tempo;
-        console.log(valor);
         var anim = setInterval(scrollto, 1);
         function scrollto(){
             if(running <= tempo){
