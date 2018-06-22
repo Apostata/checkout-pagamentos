@@ -368,19 +368,6 @@ export default class CheckoutPage {
                     }
                     else{
                         if(!this.errorFound){
-                            // let abaError = HelperFunctions.getParentSelector(secao[0], '.aba');
-                            // if(abaError){
-                            //     let selectedTab = abaError.className.split(' ').pop(),
-                            //         aba = document.querySelector(`.select-abas .${selectedTab} a`);
-                            //     HelperFunctions.linearSimpleAnim(300, secao[0], 'top');
-                            //     aba.dispatchEvent(new Event('click'));
-                            // }       
-                            // else{
-                            //     this.form.querySelector('.modal-trigger').dispatchEvent(new Event('click', {
-                            //         bubbles: true,
-                            //         view: window
-                            //     }));
-                            // } 
                             throw secao;               
                         }
                         else{
