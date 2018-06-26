@@ -165,9 +165,16 @@ const cep = (input, callback = fillAddressFields) =>{
             req.open("GET", url);
             req.onload = function() {
                 if (req.status === 200) {
-                    input.setAttribute('filled', true);
-                    callback(input, JSON.parse(req.response));
-                    valid();
+                    let resp = JSON.parse(req.response);
+
+                    if(resp.erro){
+                        invalid();
+                    }
+                    else{
+                        input.setAttribute('filled', true);
+                        callback(input, resp);
+                        valid();
+                    }
                 } else {
                     invalid();
                 }
