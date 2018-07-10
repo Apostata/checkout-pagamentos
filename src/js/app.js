@@ -363,7 +363,7 @@ export default class CheckoutPage {
 
             try {
                 result.forEach((secao)=>{
-    ;                if (secao === true) {
+                    if (secao === true) {
                         this.isValid.push(true);
                     }
                     else{

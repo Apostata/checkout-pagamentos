@@ -2,8 +2,11 @@ import webpack from 'webpack';
 import path from 'path';
 import express from 'express';
 import configDevClient from "../../config/webpack-dev-client.js";
+import configProdClient from "../../config/webpack-prod-client.js";
 
 const server = express();
+
+
 
 if(process.env.NODE_ENV !== "production"){
     const compiler = webpack([configDevClient]);
@@ -21,6 +24,14 @@ if(process.env.NODE_ENV !== "production"){
     server.use(webpackDevMiddleware); //usar as configurações de devserver do webpack config
     server.use(webpackHotMiddleware); //usar live reload USAR SEMPRE DEPOIS DO DEV MIDDLEWARE
 }
+
+const expressStaticGzip = require('express-static-gzip');
+server.use(
+    expressStaticGzip("dist", {
+            enableBrotli:true
+        }
+    )
+);
 
 const PORT = process.env.PORT || 8989;
 server.listen(PORT, ()=>{

@@ -5,12 +5,15 @@
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
+    "babel-minify-webpack-plugin": "^0.3.1",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "bunnyjs": "^0.14.41",
+    "compression-webpack-plugin": "^1.1.11",
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
+    "express-static-gzip": "^0.3.2",
     "extract-loader": "^2.0.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
@@ -24,7 +27,7 @@
     "material-icons": "^0.2.3",
     "materialize-css": "^1.0.0-rc.1",
     "node-sass": "^4.9.0",
-    "optimize-css-assets-webpack-plugin": "^4.0.1",
+    "optimize-css-assets-webpack-plugin": "^4.0.3",
     "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
@@ -34,6 +37,11 @@
     "webpack-hot-middleware": "^2.22.2"
   },
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --watch src/server --watch config --inspect src/server/main.js"
+    "dev": "NODE_ENV=development nodemon --watch src/server --watch config --inspect src/server/main.js",
+    "build": "webpack --config=config/webpack-prod-client.js --env.NODE_ENV=production",
+    "prod": "NODE_ENV=production node src/server/main.js"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.0.8"
   }
 }
