@@ -2,6 +2,8 @@
 
 ## Requisitos
 * instalar node.js (utilizar as versões LTS).
+* Caso não tenha instalado o Nodemon: npm install -g nodemon,
+* Caso esteja rodando no windows: npm install -g win-node-env
 
 ## Instruções
 * Clone o projeto.
